@@ -1,0 +1,92 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+                             % The preamble begins here.
+\title{School of Mathematics and Statistics
+\\ MAST90026
+Computational Differential Equations \\ 2024
+} 
+% Declares the document's title.
+%\author{Leslie Lamport}      % Declares the author's name.
+\date{}      % Deleting this command produces today's date.
+
+\textwidth=17.02cm
+\textheight=25cm
+\voffset=-3cm
+\hoffset=-0.75in
+\oddsidemargin 0.75in
+\evensidemargin 0.75in
+% Remove paragraph indent
+\setlength{\parindent}{0pt}
+
+%\renewcommand{\theenumi}{\alph{enumi}}
+\renewcommand{\theenumii}{\roman{enumii}}
+
+\newenvironment{pseudo}{\ttfamily \begin{tabbing} }{\end{tabbing}}
+
+%\setcounter{section}{0}
+
+
+\begin{document}             % End of preamble and beginning of text.
+
+\maketitle                   % Produces the title.
+
+\part*{ Homework 3 \\ Due: 11:00AM Wednesday, 20th March.}   
+
+This homework is worth 5\% of the total assessment in this subject.  
+You should submit copies of {\sc Matlab}  programs (include all files necessary for the programs to run) 
+and sufficient relevant output online through LMS (You may find the Matlab command publish useful!). Any hand written working should be scanned and converted to a PDF. 
+\medskip
+
+All files should be compressed into a single zip file \emph{with your student ID number in the file name}.
+
+
+
+\begin{enumerate}
+\item 
+Consider the following BVP:
+$$
+-u^{\prime \prime}(x)+u(x)=f(x), \quad 0<x<1, \quad u(0)=u(1)=0 .
+$$
+Derive the linear system of the equations for the finite element approximation
+$$
+u_{h}=\sum_{j=1}^{3} \alpha_{j} \phi_{j}(x)
+$$
+with the following information:
+\begin{itemize}
+	\item 
+	 $f(x)=1$;
+\item  the nodal points and the elements are indexed as
+$$
+\begin{aligned}
+&x_{0}=0, \quad x_{1}=\frac{1}{4}, \quad x_{2}=\frac{1}{2}, \quad x_{3}=\frac{3}{4}, \quad x_{4}=1 \\
+&E_{1}=\left[x_{0}, x_{1}\right], \quad E_{2}=\left[x_{1}, x_{2}\right], \quad E_{3}=\left[x_{2}, x_{3}\right], \quad E_{4}=\left[x_{3}, x_{4}\right]
+\end{aligned}
+$$
+\item  the basis functions are the hat functions
+$$
+\phi_{i}\left(x_{j}\right)= \begin{cases}1, & \text { if } i=j \\ 0, & \text { otherwise }\end{cases}
+$$
+\item  assemble the stiffness/mass matrix and the load vector element by element. 
+\end{itemize}
+What do you find the linear system to be? 
+ 
+\item   Derive the Galerkin equations (for a given basis $\{\phi_j\}$) for the case of mixed BCs
+\[ u(a)-u'(a) = \alpha, u(b) = \beta. \]
+
+\item Write code to use finite elements with linear basis functions on uniform mesh to solve the constant coefficient Dirichlet BVP:
+\[ -u'' + q u = r;\ \ u(a) = \alpha, u(b) = \beta,   \] 
+ where $q, r,a,b, \alpha, \beta$ are constants.  
+ 
+ Test your code on problem  from Homework 2:
+\[ -u'' + u = 0;\ \ u(0) = 1, u(1) = \exp(1),   \] 
+ and plot the maximum grid error $\max |e_j|$ versus $N$ 
+as a log-log plot. What is the rate of convergence?
+ 
+Submit the {\sc Matlab} code and the resulting error plot.
+
+\end{enumerate}
+
+
+ 
+\end{document}

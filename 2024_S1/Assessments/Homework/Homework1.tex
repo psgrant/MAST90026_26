@@ -1,0 +1,92 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+                             % The preamble begins here.
+\title{School of Mathematics and Statistics
+\\ MAST90026
+Computational Differential Equations \\ 2024
+} 
+% Declares the document's title.
+%\author{Leslie Lamport}      % Declares the author's name.
+\date{}      % Deleting this command produces today's date.
+
+\textwidth=17.02cm
+\textheight=25cm
+\voffset=-3cm
+\hoffset=-0.75in
+\oddsidemargin 0.75in
+\evensidemargin 0.75in
+% Remove paragraph indent
+\setlength{\parindent}{0pt}
+
+%\renewcommand{\theenumi}{\alph{enumi}}
+\renewcommand{\theenumii}{\roman{enumii}}
+
+\newenvironment{pseudo}{\ttfamily \begin{tabbing} }{\end{tabbing}}
+
+%\setcounter{section}{0}
+
+
+\begin{document}             % End of preamble and beginning of text.
+
+\maketitle                   % Produces the title.
+
+\part*{ Homework 1 \\ Due: 11:00AM Wednesday, 6th March.}   
+
+This homework is worth 5\% of the total assessment in this subject.  
+You should submit copies of {\sc Matlab}  programs (include all files necessary for the programs to run) 
+and sufficient relevant output online through LMS (You may find the Matlab command publish useful!). Any hand written working should be scanned and converted to a PDF. 
+\medskip
+
+All files should be compressed into a single zip file \emph{with your student ID number in the file name}.
+
+
+
+\begin{enumerate}
+\item 
+Consider the matrix $A\in \mathbb{R}^{N\times N}$ which is  obtained by using central finite difference method to discretize $u''=f(x), u(0) = u(1) = 0$, i.e.
+\begin{equation}
+	A= \frac{1}{h^2}\begin{bmatrix}
+		-2 & 1 & & & &\\
+		1& -2 & 1 & & &\\
+		& & \ddots & \ddots & \ddots & &\\
+		& & & 1 & -2 &1\\
+		& & & & 1 & -2 &\\
+	\end{bmatrix}
+\end{equation}
+\begin{itemize}
+	\item [(a)] Denote the $k$th eigenvalue of A by $\lambda^k$ and the corresponding eigenvalue vector is denoted by $\mathbf{u}^k$. Find $\lambda^k$ by assuming  $\mathbf{u}^k_j = \sin(\frac{k\pi j}{N+1})$, $j=1, \ldots, N;$  
+	\item [(b)] Use the result in (a) to prove that $\|A^{-1}\|_2 = \frac{1}{\pi^2} + O(h^2)$.
+\end{itemize}
+
+\item  Consider the finite difference scheme for the 1D steady state convection-diffusion equation
+$$
+\begin{aligned}
+&\epsilon u^{\prime \prime}-u^{\prime}=-1, \quad 0<x<1 \\
+&u(0)=1, \quad u(1)=3
+\end{aligned}
+$$
+(a) Verify the exact solution is
+$$
+u(x)=1+x+\left(\frac{e^{x / \epsilon}-1}{e^{1 / \epsilon}-1}\right)
+$$
+(b) Compare the following two finite difference methods for $\epsilon=0.3,0.1,0.05$, and $0.0005$.
+\begin{itemize}
+	\item [(i)] Central finite difference scheme:
+$$
+\epsilon \frac{U_{i-1}-2 U_{i}+U_{i+1}}{h^{2}}-\frac{U_{i+1}-U_{i-1}}{2 h}=-1
+$$
+\item [(ii)] Central-upwind finite difference scheme:
+$$
+\epsilon \frac{U_{i-1}-2 U_{i}+U_{i+1}}{h^{2}}-\frac{U_{i}-U_{i-1}}{h}=-1
+$$
+\end{itemize}
+Do a grid refinement analysis for each case to determine the order of accuracy. Include plots of $\|\boldsymbol{E}\|_2$ vs $h$.
+
+(c) From your observations, in your opinion which method is better? 
+
+\end{enumerate}
+
+
+ 
+\end{document}

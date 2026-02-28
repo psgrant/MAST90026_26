@@ -1,0 +1,101 @@
+\documentclass[11pt]{article}
+                             % The preamble begins here.
+\title{School of Mathematics and Statistics
+\\ MAST90026
+Computational Differential Equations \\ 2024
+} 
+\date{}      % Deleting this command produces today's date.
+
+\textwidth=17.02cm
+\textheight=25cm
+\voffset=-3cm
+\hoffset=-0.75in
+\oddsidemargin 0.75in
+\evensidemargin 0.75in
+
+\renewcommand{\theenumi}{\alph{enumi}}
+
+\newenvironment{pseudo}{\ttfamily \begin{tabbing} }{\end{tabbing}}
+
+\setcounter{section}{0}
+
+\begin{document}             % End of preamble and beginning of text.
+
+\maketitle                   % Produces the title.
+
+\part*{Course Outline}
+
+In Computational Differential Equations you will learn how to write and implement numerical solutions to a variety of problems commonly encountered in science and engineering. Understanding the behaviour of the mathematical problem gives insight into the pitfalls for the unwary in using canned packages inappropriately or uncritically. 
+
+The subject will cover different material to MAST30028.  However, students with previous experience in MATLAB and numerical techniques will be better prepared than those without. 
+
+This year the course will cover numerical methods for two-point boundary value problems and for common partial differential equations in 1 and 2 spacial dimensions. 
+
+Topics will include:   boundary value problems for ordinary differential equations;   the solution of parabolic, hyperbolic and elliptic partial differential equations. I will introduce finite difference, finite element and spectral methods.
+
+\section*{Prerequisites}	Ability to program in something, e.g. C, MATLAB, Mathematica, Perl, Fortran, Python etc.
+Students should ideally have taken a subject in partial differential equations.
+
+\section*{Classes}
+Monday 11AM -- 1PM and Wednesday 11:00AM -- 12:00PM  Wilson Lab (Room G70), Peter Hall building.
+
+\section*{Consultation hours}
+My consultation hours are  Monday 1:15 -- 2:15 PM and Wednesday  12:00 -- 1:00 PM
+   in Room 206 in Peter Hall. 
+
+\section*{Assessment}
+\begin{itemize}
+\item Weekly homework problems, worth 20\% in total (released on Wednesday 12:00PM in Weeks 1--4 and due on Wednesday 11:00AM in Weeks 2--5).
+  \item Three (3) assignments,  worth 20\% each (released on Wednesday 12:00PM in Weeks 5, 7, 9) due on Wednesday 11:00AM in Weeks 7, 9, 11.
+  \item One 15 minute group talk including a copy of slides provided to me, worth 20\%. Held in week 12 (possibly also week 11 depending on size of class).
+  \end{itemize}
+%Students need to submit a plagiarism form online (see LMS) before the first homework is returned.
+\newpage
+\section*{Lecture schedule}
+
+\begin{center}
+\begin{tabular}{|c|p{8cm}|c|c|}
+\hline
+Starting &  Content  & Software & Refs.   \\
+\hline
+26 Feb  &  BVPs I: Finite Differences (FD) & & L, I  \\
+4 Mar  &  BVPs II: Collocation methods  &  & S \\
+11 Mar  &   BVPs III:  Finite elements (FEM) &  & I   \\  
+18 Mar  &   Handling nonlinearity &  &  \\  
+25 Mar  &  Elliptic eq. I: FD & & I \\   
+\cline{2-4} &   Mid semester break (1 week) &  &\\   \cline{2-4}
+  
+ 8 Apr  &  Elliptic eq. II: FEM &  & G\\ 
+ 15 Apr  & Iterative methods for linear systems &   & G, L  \\ 
+22 Apr  &  Parabolic equations  I: Method of Lines (MOL) &  & L \\  
+29 Apr  &  Parabolic equations II:  FD&  & L\\
+6 May  &  Hyperbolic equations:  FD & & L  \\
+13 May  &  Evolution equations :  operator splitting   & & L  \\
+20 May  & Student talks  &  &  \\
+\hline
+\end{tabular}
+\end{center}  
+
+\section*{References}
+These books go beyond the subject in coverage, and somewhat in depth however they offer a good background.
+\begin{itemize}
+\item[G] Gockenbach, {\em Understanding and implementing the finite element method}, SIAM, 2006.
+\item[I] Iserles, {\em A first course in the numerical analysis of differential equations}, 2nd ed.,  CUP, 2008.
+\item[L] Leveque, {\em Finite Difference Methods for Ordinary and Partial Differential Equations: Steady-State and Time-dependent problems}, SIAM, 2007. {Note: Availiable online through University Libraries.}
+\item[S] Jie Shen, Tao  Tang, and Li-lian Wang, {\em Spectral methods.
+Algorithms, analysis and applications},
+Springer Series in Computational Mathematics, 41. Springer, Heidelberg,  2011.  {Note: Availiable online through University Libraries.}
+\end{itemize}
+
+
+
+
+
+
+\section*{}
+Jesse Collis
+
+\noindent
+February  2024.
+
+\end{document}

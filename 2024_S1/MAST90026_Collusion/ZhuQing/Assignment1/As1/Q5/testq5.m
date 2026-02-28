@@ -1,0 +1,1 @@
+u = solve_bvp_with_bc(-1:0.01:1);

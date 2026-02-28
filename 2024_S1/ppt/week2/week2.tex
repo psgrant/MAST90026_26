@@ -1,0 +1,807 @@
+\documentclass[10pt]{beamer}
+
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usepackage{siunitx}
+\usepackage{color}
+\usepackage[normalem]{ulem}
+\usetikzlibrary{calc,decorations.pathmorphing,patterns}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% The following is for fancy box %%%%%%%%%%%%%%
+\usepackage[framemethod=TikZ]{mdframed}
+%%%%%%%%%%%%% Theorem %%%%%%%%%%%%
+\newenvironment{thm}[2][]{%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=red!20]
+{\strut Theorem};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=red!20]
+{\strut Theorem #1};}}%
+}%
+\mdfsetup{innertopmargin=1pt,linecolor=red!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+%%%%%%%%%%%%%%Lemma%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{lem}[section] \setcounter{lem}{0}
+\renewcommand{\thelem}{\arabic{section}.\arabic{lem}}
+\newenvironment{lem}[2][]{%
+\refstepcounter{lem}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=green!20]
+{\strut Lemma~\thelem};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=green!20]
+{\strut Lemma~\thelem:~#1};}}%
+}%
+\mdfsetup{innertopmargin=1pt,linecolor=green!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Corollary
+\newenvironment{cor}[2][]{%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!30]
+{\strut Corollary};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!30]
+{\strut Corollary:~#1};}}%
+}%
+\mdfsetup{innertopmargin=1pt,linecolor=blue!30,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Proof
+\newenvironment{prove}[2][]{%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=red!20]
+{\strut Proof};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=red!20]
+{\strut Proof:~#1};}}%
+}%
+\mdfsetup{innertopmargin=1pt,linecolor=red!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Defintion
+\newcounter{drf}[section]\setcounter{drf}{0}
+\renewcommand{\thedrf}{}
+\newenvironment{drf}[2][]{%
+\refstepcounter{drf}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=orange!20]
+{\strut Definition~\thedrf};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=orange!20]
+{\strut Definition~\thedrf:~#1};}}%
+}%
+\mdfsetup{innertopmargin=1pt,linecolor=orange!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% end of self defined label
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%% For double curly bracket%%%%%%%%%%%%%%%%
+\usepackage{xparse}
+
+\NewDocumentCommand{\dgal}{sO{}m}{%
+  \IfBooleanTF{#1}
+    {\dgalext{#3}}
+    {\dgalx[#2]{#3}}%
+}
+
+\NewDocumentCommand{\dgalext}{m}{%
+  \sbox0{%
+    \mathsurround=0pt % just for safety
+    $\left\{\vphantom{#1}\right.\kern-\nulldelimiterspace$%
+  }%
+  \sbox2{\{}%
+  \ifdim\ht0=\ht2
+    \{\kern-.45\wd2 \{#1\}\kern-.45\wd2 \}%
+  \else
+    \left\{\kern-.5\wd0\left\{#1\right\}\kern-.5\wd0\right\}%
+  \fi
+}
+
+\NewDocumentCommand{\dgalx}{om}{%
+  \sbox0{\mathsurround=0pt$#1\{$}%
+  \sbox2{\{}%
+  \ifdim\ht0=\ht2
+    \{\kern-.45\wd2 \{#2\}\kern-.45\wd2 \}%
+  \else
+    \mathopen{#1\{\kern-.5\wd0 #1\{}
+    #2
+    \mathclose{#1\}\kern-.5\wd0 #1\}}
+  \fi
+}
+%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{animate}
+
+\graphicspath{{./fig/}}
+
+
+%%%%%%%%%%%%%% define color %%%%%%%%%%%%%%%%%%
+\definecolor{DarkFern}{HTML}{407428}
+\definecolor{DarkCharcoal}{HTML}{4D4944}
+\colorlet{Fern}{DarkFern!85!white}
+\colorlet{Charcoal}{DarkCharcoal!85!white}
+\colorlet{LightCharcoal}{Charcoal!50!white}
+\colorlet{AlertColor}{orange!80!black}
+\colorlet{DarkRed}{red!70!black}
+\colorlet{DarkBlue}{blue!70!black}
+\colorlet{DarkGreen}{green!70!black}
+
+\newcommand{\I}{\mathrm{i}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newcommand{\G}{\alert{G}}  % change color of main author
+
+
+
+%%%%%%%%%%%%% Title Page %%%%%%%%%%%%%%%%%%%
+
+\title{MAST90026 Computational Differential\\Equations: Week 2}
+%\subtitle{A modern beamer theme}
+\date{Semester 1 2024}
+\author{Jesse Collis\\Modified from Hailong Guo (2022)}
+\institute{The University of Melbourne}
+\titlegraphic{\vspace{6cm}\flushright\includegraphics[height=2cm]{logo.png}}
+
+
+\begin{document}
+
+\maketitle
+
+
+%
+%
+%\begin{frame}{Table of contents}
+%  \setbeamertemplate{section in toc}[sections numbered]
+%  \tableofcontents[hideallsubsections]
+%\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%
+%	SECTION: 
+%
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%\section{Method of Weighted Residuals}
+
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Method of weighted residual }
+
+    
+    \begin{center}
+  \includegraphics[width=1.03\textwidth]{wr.pdf}
+     \end{center}
+    
+
+ 
+	
+\end{frame}
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Classification of MWR }
+
+    
+    \begin{center}
+  \includegraphics[width=1.03\textwidth]{wrm.pdf}
+     \end{center}
+    
+
+ 
+	
+\end{frame}
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Idea of spectral collocation}
+
+   
+  Three step idea:
+  
+  
+  \begin{enumerate}
+  	\item [Step 1:] Choose a trial space $V_N$ ($N+1$ dimensional). Write $u_N\in V_N$ as
+     \begin{equation*}
+     	u_N = \sum_{j=0}^N c_j b_j(x).
+     \end{equation*} 
+  	\item [Step 2:] Choose collocation points $\{x_0, x_1, \ldots, x_N\}$.
+  	\item [Step 3:] Determine $c_j$ using the collocation condition:
+  	\begin{equation*}
+  		Lu_N(x_j) = f(x_j), \quad j =0, 1, \dots, N.
+  	\end{equation*}
+  \end{enumerate}
+
+
+
+  
+\end{frame}
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Choose of trial space and collocation points}
+
+Periodic boundary conditions:
+\begin{itemize}
+	\item Space of trigonometric functions
+	\begin{equation*}
+		u_N(x) = \sum_{j=0}^N a_j \cos(jx) + \sum_{j=1}^N b_j\sin(jx) = \sum_{j=-N}^{N} c_j e^{i jx}.
+	\end{equation*}
+	\item Collocation points: $x_j = \frac{j\pi}{N}, \quad j = 0, 1, \ldots, 2N.$
+\end{itemize}
+
+
+Nonperiodic boundary conditions:
+  \begin{itemize}
+  	\item Space of polynomials of degree $N$ (order $N+1$).
+\begin{equation*}
+u_N(x) =p_{N}(x) \in \mathbb{P}_{N+1}.
+\end{equation*}
+   \item Collocation points are roots of orthogonal polynomial of degree $N+1$.
+  \end{itemize}
+  
+  
+  
+  
+  
+\end{frame}
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Definition of orthogonal }
+
+
+\begin{drf}[(Orthogonal)]
+	s Given an open interval $I:=(a, b)(-\infty \leq a<b \leq+\infty)$, and a generic weight function $\omega$ such that
+$$
+\omega(x)>0, \forall x \in I \text { and } \omega \in L^{1}(I)
+$$
+two different functions $f$ and $g$ are said to be orthogonal to each other in $L_{\omega}^{2}(a, b)$ or orthogonal with respect to $\omega$ if
+$$
+(f, g)_{\omega}:=\int_{a}^{b} f(x) g(x) \omega(x) d x=0
+$$
+\end{drf}
+
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Orthogonal polynomial}
+
+
+\begin{drf}
+	a A sequence of polynomials $\left\{p_{n}\right\}_{n=0}^{\infty}$ with $\operatorname{deg}\left(p_{n}\right)=n$ is said to be orthogonal in $L_{\omega}^{2}(a, b)$ if
+$$
+\left(p_{n}, p_{m}\right)_{\omega}=\int_{a}^{b} p_{n}(x) p_{m}(x) \omega(x) d x=\gamma_{n} \delta_{m n}
+$$
+where the constant $\gamma_{n}=\left\|p_{n}\right\|_{\infty}^{2}$ is nonzero, and $\delta_{m n}$ is the Kronecker delta.
+\end{drf}
+
+
+  
+\end{frame}
+
+
+
+
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Existence and uniqueness of orthogonal polynomial}
+
+
+\begin{thm}
+s For any given positive weight function $\omega \in L^{1}(a, b)$, there exists a unique sequence of monic orthogonal polynomials $\left\{\bar{p}_{n}\right\}$ with $\operatorname{deg}\left(\bar{p}_{n}\right)=n$, which can be constructed as follows
+$$
+\begin{aligned}
+&\bar{p}_{0}=1, \bar{p}_{1}=x-\alpha_{0} \\
+&\bar{p}_{n+1}=\left(x-\alpha_{n}\right) \bar{p}_{n}-\beta_{n} \bar{p}_{n-1}, \quad n \geq 1
+\end{aligned}
+$$
+where
+$$
+\begin{aligned}
+\alpha_{n} &=\frac{\left(x \bar{p}_{n}, \bar{p}_{n}\right)_{\omega}}{\left\|\bar{p}_{n}\right\|_{\omega}^{2}}, \quad n \geq 0, \\
+\beta_{n} &=\frac{\left\|\bar{p}_{n}\right\|_{\omega}^{2}}{\left\|\bar{p}_{n-1}\right\|_{\omega}^{2}}, \quad n \geq 1 .
+\end{aligned}
+$$
+\end{thm}
+ 
+
+  
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Example of orthogonal polynomials}
+
+Consider $(a,b)=(-1,1)$ and $\omega = 1$. \alert{Legendre polynomials}:
+\begin{equation*}
+	P_0(x) = 1, \quad P_1(x) = x, \quad P_{n+1}(x) = \frac{2n+1}{n+1}xP_n(x) - \frac{n}{n+1}P_{n-1}(x), 
+\end{equation*}
+
+\vspace{0.2em}
+
+Consider $(a,b)=(-1,1)$ and $\omega = (1-x^2)^{-\frac{1}{2}}$. \alert{Chebyshev polynomials of the first kind}:
+\begin{equation*}
+	P_0(x) = 1, \quad P_1(x) = x, \quad P_{n+1}(x) = 2xP_n(x) - P_{n-1}(x), 
+\end{equation*}
+
+\vspace{0.2em}
+More general. Consider $(a,b)=(-1,1)$ and $\omega = (1-x)^{\alpha}(1+x)^{\beta}$ with $\alpha,\beta>-1$. The obtained orthogonal polynomials are \alert{Jacobi polynomials}
+  
+\end{frame}
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Other definition of Legendre and Chebyshev polynomials}
+Legendre polynomials:
+\begin{itemize}
+	\item Eigenfunciton of 
+	$$
+	-\frac{d}{dx}\left((1-x^2)\frac{d\phi(x)}{dx}\right)=k(k+1)\phi(x)
+	$$
+	\item Rodrigue's formula
+	\begin{equation*}
+		P_n(x) = \frac{1}{2^nn!}\frac{d^n}{dx^n}(x^2-1)^n.
+	\end{equation*}
+\end{itemize}
+
+Chebyshev polynomial of the first kind:
+\begin{itemize}
+	\item Eigenfunciton of 
+	$$
+	-\frac{d}{dx}\left(\sqrt{(1-x^2)}\frac{d\phi(x)}{dx}\right)= \frac{k^2}{\sqrt{(1-x^2)}}\phi(x)
+	$$
+	\item Explicit formula
+	\begin{equation*}
+		P_n(x) = \cos(n\theta), \text{ where }  \theta = \arccos(x)
+	\end{equation*}
+\end{itemize}
+  
+\end{frame}
+
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Zeros of orthogonal polynomials}
+
+\begin{thm}
+	1 The zeros of $p_{n}$ are all real, simple, and lie in the interval $(a, b)$.
+\end{thm}
+  
+\end{frame}
+
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Numerical quadrature}
+
+The basis problem is to find quadrature nodes $\{x_j\}$ and weights $\{\omega_j\}$ such that 
+\begin{equation*}
+	\int_{a}^b f(x)\omega(x)dx \approx \sum_{j=0}^{N} f(x_j)\omega_j.
+\end{equation*}
+
+  \begin{drf}
+  	f The quadrature have algebraic accuracy of degree $p$ if
+  	\begin{equation*}
+	\int_{a}^b p(x)\omega(x)dx = \sum_{j=0}^{N} p(x_j)\omega_j,\quad p(x) \in \mathbb{P}_p.
+\end{equation*}
+
+  \end{drf}
+  
+  
+ In general, we want choose  $\{x_j\}$ and $\{\omega_j\}$ such that we have highest degree of accuracy.
+\end{frame}
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Gaussian quadrature}
+
+
+\begin{thm}[(Gauss quadrature)]
+s Let $\left\{x_{j}\right\}_{j=0}^{N}$ be the set of zeros of the orthogonal polynomial $p_{N+1}$. Then there exists a unique set of quadrature weights $\left\{\omega_{j}\right\}_{j=0}^{N}$, defined by (3.36), such that
+$$
+\int_{a}^{b} p(x) \omega(x) d x=\sum_{j=0}^{N} p\left(x_{j}\right) \omega_{j}, \quad \forall p \in P_{2 N+1}
+$$
+Orthogonal Polynomials and Related Approximation Results
+where the quadrature weights are all positive and given by
+$$
+\omega_{j}=\frac{k_{N+1}}{k_{N}} \frac{\left\|p_{N}\right\|_{\omega}^{2}}{p_{N}\left(x_{j}\right) p_{N+1}^{\prime}\left(x_{j}\right)}, \quad 0 \leq j \leq N,
+$$
+where $k_{j}$ is the leading coefficient of the polynomial $p_{j}$.
+\end{thm}
+
+
+\end{frame}
+
+
+
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Choices of collocation points}
+We have many different options for collocation points that suit different scenarios
+
+
+Chebyshev points:
+\begin{itemize}
+	\item Chebyshev-Gauss: $x_j = \cos \frac{(2j+1)\pi}{2N+2}, \quad 0\le j \le N.$
+    \item Chebyshev-Gauss-Radau: $x_j = \cos \frac{2j\pi }{2N+1}, \quad 0\le j \le N.$
+    \item Chebyshev-Gauss-Lobatto: $x_j = \cos \frac{j\pi }{N}, \quad 0\le j \le N.$
+\end{itemize}
+
+Legendre points:
+\begin{itemize}
+	\item Legendre-Gauss: $x_j$ are the zeros of $P_{N+1}(x)$.
+    \item Legendre-Gauss-Radau: $x_j$ are the zeros of $P_N(x)+P_{N+1}(x)$.
+    \item Legendre-Gauss-Lobatto: $x_0=-1$, $x_N=1$, $\{x_j\}_{j=1}^{N}$ are zeros of $P'_{N-1}(x)$.
+   \end{itemize}
+
+\alert{Question}: Why don't we just use equally distributed points?
+
+\end{frame}
+
+
+\begin{frame}{Chebyshev-Gauss quadrature}
+The quadrature rules for Chebyshev points are particularly simple
+
+\begin{enumerate}
+\item Chebyshev-Gauss:\\$\displaystyle{\int_{-1}^{1} \frac{p(x)}{\sqrt{1-x^2}}dx = \frac{\pi}{N+1}\sum_{j=0}^{N}p(x_j),\qquad \forall p\in P_{2N+1}}$
+\item Chebyshev-Gauss-Radau:\\$\displaystyle{\int_{-1}^{1} \frac{p(x)}{\sqrt{1-x^2}}dx = \frac{\pi}{2N+1}p(1) + \frac{\pi}{N+\frac{1}{2}}\sum_{j=1}^{N} p(x_j)},\qquad \forall p\in P_{2N}$
+\item Chebyshev-Gauss-Lobatto:\\ $\displaystyle{\int_{-1}^{1}\frac{p(x)}{\sqrt{1-x^2}}dx = \frac{\pi}{2N}\Big(p(1) + p(-1)\Big) + \frac{\pi}{N}\sum_{j=1}^{N-1}p(x_j),\qquad \forall p\in P_{2N-1}}$
+\end{enumerate}
+
+
+\end{frame}
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Illustration of spectral collocation method}
+
+\alert{Example}: Consider the BVP $u''(x)+p(x)u'(x)+q(x)=r(x)$ over $[a,b]$.
+\begin{itemize}
+	\item   Map the interval $[a,b]$ to $[-1,1]$. $\to u''(t) +\bar{p}(t)u'(t)+\bar{q}u(t)=\bar{r}(t)$.
+	Here we still denote the mapped functions as $u(t)$.
+	\item Let \begin{equation*}
+u_N(x) = \sum_{j=0}^{N}u_j\ell_j(x),  
+\end{equation*} 
+where $\ell_j(x)$ be the Lagrange interpolating polynomials. So,
+\begin{equation*}
+u_N'(x) = \sum_{j=0}^N u_j\ell_j'(x),
+\end{equation*}
+\begin{equation*}
+u_N''(x)  = \sum_{j=0}^{N}u_j\ell_j''(x).
+\end{equation*}
+\end{itemize}
+
+\end{frame}
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Differentiation matrix}
+
+Since we are collocating, we only need to find $u'$ and $u''$ at the collocation points.
+\begin{align*}
+u_N'(x_k) &= \sum_{j=0}^N u_j \ell_j'(x_k) = \sum_{j=0}^N D_{kj}u_j, \quad \text{and} \\
+u_N''(x_k) &= \sum_{j=0}^N u_j \ell_j''(x_k) = \sum_{j=0}^N D^{(2)}_{kj}u_j,
+\end{align*}
+where $D_{kj} \equiv \frac{d}{dx}\ell_j(x)\bigg|_{x_k}$, $D_{kj}^{(2)}=\frac{d^2}{dx^2}\ell_j(x)\bigg|_{x_k}$, and $\ell_j$ is the $j$th Lagrange interpolation polynomial.  
+
+
+Note that $D^{(2)} = D^2$ (squared using matrix multiplication).
+
+\end{frame}
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{How to compute the Differentiation matrix }
+\begin{thm}
+	T The entries of $D$ are determined by
+$$d_{k j}=\ell_{j}^{\prime}\left(x_{k}\right)= \begin{cases}\frac{Q^{\prime}\left(x_{k}\right)}{Q^{\prime}\left(x_{j}\right)} \frac{1}{x_{k}-x_{j}}, & \text { if } k \neq j, \\ \frac{Q^{\prime \prime}\left(x_{k}\right)}{2 Q^{\prime}\left(x_{k}\right)}, & \text { if } k=j,\end{cases}$$
+where
+$$
+Q(x)=p_{N+1}(x),(x-a) q_{N}(x),(x-a)(b-x) z_{N-1}(x)
+$$
+are the quadrature polynomials  of the Gauss, Gauss-Radau and Gauss-Lobatto quadrature, respectively. We can write $p_{N+1}=(x-x_0)(x-x_1)\cdots (x-x_N)$, $q_N=(x-x_1) \cdots (x-x_N)$, and 
+ $z_{N-1}=(x-x_1) \cdots (x-x_{N-1})$
+
+\end{thm}
+
+%\begin{prf}
+%	Proof. The Lagrange basis polynomials can be expressed as
+%$$
+%h_{j}(x)=\frac{Q(x)}{Q^{\prime}\left(x_{j}\right)\left(x-x_{j}\right)}, \quad 0 \leq j \leq N
+%$$
+%Differentiating (3.75) and using the fact $Q\left(x_{j}\right)=0$ lead to
+%$$
+%d_{k j}=h_{j}^{\prime}\left(x_{k}\right)=\frac{Q^{\prime}\left(x_{k}\right)}{Q^{\prime}\left(x_{j}\right)} \frac{1}{x_{k}-x_{j}}, \quad \forall k \neq j .
+%$$
+%Applying the L'Hopital's rule twice yields
+%$$
+%d_{k k}=\lim _{x \rightarrow x_{k}} h_{k}^{\prime}(x)=\frac{1}{Q^{\prime}\left(x_{k}\right)} \lim _{x \rightarrow x_{k}} \frac{Q^{\prime}(x)\left(x-x_{k}\right)-Q(x)}{\left(x-x_{k}\right)^{2}}=\frac{Q^{\prime \prime}\left(x_{k}\right)}{2 Q^{\prime}\left(x_{k}\right)} .
+%$$
+%This completes the proof.
+%\end{prf}
+
+\end{frame}
+
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{How to compute the Differentiation matrix }
+
+\begin{prove}
+	1 The Lagrange basis polynomials can be expressed as
+$$
+\ell_{j}(x)=\frac{Q(x)}{Q^{\prime}\left(x_{j}\right)\left(x-x_{j}\right)}, \quad 0 \leq j \leq N
+$$
+Differentiating it and using the fact that $Q\left(x_{j}\right)=0$ leads to
+$$
+d_{k j}=\ell_{j}^{\prime}\left(x_{k}\right)=\frac{Q^{\prime}\left(x_{k}\right)}{Q^{\prime}\left(x_{j}\right)} \frac{1}{x_{k}-x_{j}}, \quad \forall k \neq j .
+$$
+Applying L'Hopital's rule twice yields
+$$
+d_{k k}=\lim _{x \rightarrow x_{k}} \ell_{k}^{\prime}(x)=\frac{1}{Q^{\prime}\left(x_{k}\right)} \lim _{x \rightarrow x_{k}} \frac{Q^{\prime}(x)\left(x-x_{k}\right)-Q(x)}{\left(x-x_{k}\right)^{2}}=\frac{Q^{\prime \prime}\left(x_{k}\right)}{2 Q^{\prime}\left(x_{k}\right)} .
+$$
+This completes the proof.
+\end{prove}
+
+\end{frame}
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Chebyshev differentiation matrix}
+
+This code gives the differentiation matrix for Chebyshev-Gauss-Lobatto points using Lagrange basis polynomials
+
+  \begin{center}
+  \includegraphics[width=1.03\textwidth]{cdm}
+     \end{center}
+    
+
+\end{frame}
+
+
+
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Go back to example  }
+
+ Collocate at the collocation points and
+\begin{align*}
+u_N''(x_k)+\bar{p}(x_k)u_N'(x_k)+\bar{q}(x_k)u_N(x_k)=\bar{r}(x_k), \quad k=0, 1, \ldots, N,
+\end{align*}
+becomes
+\begin{align*}
+D^2\vec{u}+
+\begin{pmatrix}
+\bar{p}_0 & 0 & \cdots & 0 \\
+0 & \bar{p}_1 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \bar{p}_N
+\end{pmatrix}
+D \vec{u}
++
+\begin{pmatrix}
+\bar{q}_0 & 0 & \cdots & 0 \\
+0 & \bar{q}_1 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \bar{q}_N
+\end{pmatrix}
+\vec{u}
+=
+\begin{pmatrix}
+\bar{r}_0 \\
+\bar{r}_1 \\
+ \vdots \\
+\bar{r}_N
+\end{pmatrix}
+=\bar{\vec{r}}.
+\end{align*}
+And you can solve this for $\vec{u}$.
+
+
+
+\end{frame}
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Impose boundary condition }
+
+Since we know the value of $u$ at $x=\pm1$, $(k=0,N)$, we don't need to collocate at these points. 
+So we do not need the first and last rows of $D$ and $D^2$.
+
+
+\vspace{0.2em}
+So for the rest of our rows we have:
+\begin{align*}
+u'_k =& \sum_{j=0}^{N}D_{kj}u_j \qquad (k=1,\dots,N-1)\\
+=&\sum_{j=1}^{N-1}D_{kj}u_j +u_0 D_{k0}+u_N D_{kN}.
+\end{align*}
+
+
+
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Summary of spectral collocation method }
+
+\alert{Pros and cons}
+\begin{itemize}
+	\item High-order method, easy to implement
+	\item Superior to spectral-Galerkin method in dealing with variable coefficients and/or nonlinear problems
+	\item Differential matrix is ill-conditioned and full
+\end{itemize}
+
+
+
+\end{frame}
+
+
+
+
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}[standout]
+  End of week 2!
+\end{frame}
+
+\appendix
+
+
+
+\end{document}

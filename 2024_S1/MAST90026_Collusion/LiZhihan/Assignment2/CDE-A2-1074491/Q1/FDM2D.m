@@ -1,0 +1,68 @@
+function [uu, x, y] = FDM2D(f, a, b, c, d, n, m)
+
+% Define the grid and step sizes
+hx = (b-a)/(n+1); % step size in x direction or \Detla x in ppt
+hy = (d-c)/(m+1); % step size in y direcito or \Delta y in ppt
+xx = a:hx:b;
+yy = c:hy:d;
+
+
+% Create sparse matrices for the discretized Laplacian
+e = ones(n,1);
+D = spdiags(-1/hy^2*e, 0, n, n);
+C = spdiags([-1/hx^2*e 2*(1/hx^2+1/hy^2)*e -1/hx^2*e], [-1 0 1], n, n);
+r = ones(m,1);
+I = spdiags(r, 0, m, m);
+E = spdiags([r r], [-1, 1], m, m);
+A = kron(I, C) + kron(E, D);
+
+% Form the right-hand side vector
+[x, y] = meshgrid(xx, yy);
+rhs = zeros(n*m,1);
+for j = 1:m
+    rhs((j-1)*n+1:(j-1)*n+n) = f(x(j+1,2:n+1), y(j+1,2:n+1));
+    rhs((j-1)*n+1)=rhs((j-1)*n+1)+exp(x(j+1,1)+y(j+1,1))/(hx)^2;
+    rhs((j-1)*n+n)=rhs((j-1)*n+n)+exp(x(j+1,n+2)+y(j+1,n+2))/(hx)^2;
+end
+b1=zeros(n,1);
+c1=zeros(n,1);
+for i=1:n
+    b1(i)=rhs(i);
+    c1(i)=exp(x(1,i+1)+y(1,i+1));
+end
+b1=b1-D*c1;
+for i=1:n
+    rhs(i)=b1(i);
+end
+
+b2=zeros(n,1);
+c2=zeros(n,1);
+for i=n*m-n+1:n*m
+    b2(i-(m-1)*n)=rhs(i);
+end
+for i=1:n
+    c2(i)=exp(x(m+2,i+1)+y(m+2,i+1));
+end
+b2=b2-D*c2;
+for i=n*m-n+1:n*m
+    rhs(i)=b2(i-(n*m-n));
+end
+
+% solve the linear system 
+u = A\rhs;
+
+% Map the solution to a 2D grid including boundary conditions
+uu = zeros(n+2, m+2);
+uu(2:end-1, 2:end-1) = reshape(u, n, m);
+uu = uu';
+for i=1:n+2
+    uu(1,i)=exp(x(1,i)+y(1,i));
+    uu(m+2,i)=exp(x(m+2,i)+y(m+2,i));
+end
+for i=2:m+1
+    uu(i,1)=exp(x(i,1)+y(i,1));
+    uu(i,n+2)=exp(x(i,n+2)+y(i,n+2));
+end
+
+% Plot the solution
+surf(x,y,uu)

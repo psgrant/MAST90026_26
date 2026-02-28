@@ -1,0 +1,475 @@
+\documentclass[10pt]{article}
+                             % The preamble begins here.
+\title{School of Mathematics and Statistics
+\\ MAST90026
+Computational Differential Equations \\ 2024
+} 
+% Declares the document's title.
+%\author{Leslie Lamport}      % Declares the author's name.
+\date{}      % Deleting this command produces today's date.
+
+\textwidth=17.92cm
+\textheight=25cm
+\voffset=-3.5cm
+\hoffset=-0.75in
+\oddsidemargin 0.5in
+\evensidemargin 0.5in
+% Remove paragraph indent
+\setlength{\parindent}{0pt}
+
+
+%\renewcommand{\theenumi}{\alph{enumi}}
+%\renewcommand{\theenumii}{\roman{enumii}}
+
+\newenvironment{pseudo}{\ttfamily \begin{tabbing} }{\end{tabbing}}
+
+%\setcounter{section}{0}
+
+\usepackage{mcode}
+
+\usepackage{hyperref}
+\hypersetup{colorlinks = true,
+urlcolor = blue}
+
+
+\begin{document}             % End of preamble and beginning of text.
+
+\maketitle                   % Produces the title.
+
+\vspace{-2em}
+\part*{ Student Talks:} 
+The presentations are worth 20\% of the total assessment in this subject.    
+%10\% of these marks (so 2\% in total) are awarded for attending the talk sessions.
+ 
+
+\vspace{0.5em}
+
+
+Your task is to find out something about one of the following topics and tell us about it!
+
+\vspace{0.5em}
+
+You will be working in pairs, which you can choose yourself; anyone who doesn't choose a partner will be assigned one at random. You can also select up to 5 preferred topics (there is no guarantee you will be assigned one of these but I will try my best to optimise everyone's happiness). Please fill in the below link by 5pm Monday 15th April and I will release the allocations and presentation timetable on Wednesday 17th April during the tutorial.
+
+\vspace{0.5em}
+
+\href{https://pollev.com/mast90026}{pollev.com/mast90026}
+
+\vspace{0.5em}
+
+  For your assigned topic, you are expected to show a numerical demonstrations. You may use MATLAB code that you find on the MathWorks file exchange as long as you appropriately site this during your presentation. You must however do a reasonable quantity of coding yourself. For example, if you are assigned one of the easier topics (e.g. 2) it would make sense to write code from scratch whereas if you are assigned one of the harder topics (e.g., 16 or 17) then it makes sense to use existing code from the MathWorks file exchange and write scripts/functions to call that code. If you are unsure on the difficulty level of your assigned topic then please ask me.
+
+\vspace{0.5em}
+ 
+Your presentation must be between 10--13 minutes long and you should each aim to speak for about half the time. I will cut you off at 13 minutes if you are not finished and you will loose a mark if it is not at least 10 minutes long; there will be a timer at the front of the room that you can see. There are an additional 2 minutes for questions.
+
+
+\vspace{0.5em}
+
+You must submit your presentation, code and a brief statement (2-4 sentences) on what you contributed to both the coding and the presentation slides. You should state which slides you created/contribute to and which parts of the code you wrote etc. These should all be uploaded to Canvas. Note only one group member needs to upload the code/presentation slides but all group members should upload a statement on your individual contribution.
+
+\vspace{0.5em}
+
+Grading (20 marks total): slides (5 marks), presentation (5 marks), numerical demonstration (5 marks), difficulty/depth of the content covered (4 marks), attendance at all talks (1 mark).
+
+
+
+
+
+
+
+\begin{enumerate}
+\item  {\bf Shooting methods for  BVPs}
+
+Mention: simple shooting, superposition
+ 
+No need for: multiple shooting
+
+Some references: 
+				AMR \S 4.1, 4.2, 4.6,   
+				A \& P \S 7.1
+				
+%\item {\bf Compact finite differences}
+%
+%Fourer analysis of Finite differences; Pade approximant methods
+%
+%Some references: Moin \S 2.3-2.5; Lele \S1-3
+
+\item {\bf Gaussian quadrature}
+
+Investigate: Gauss-Legendre quadrature, Gauss-Lobatto quadrature and Gauss-Radau  
+
+Some references: A \& H \S5.3, Heath \S 8.3, S \& M Ch 10
+
+\item {\bf Gaussian quadrature on unbounded domains}
+
+Investigate: Gauss-Hermite, Gauss-Laguerre
+
+Some references: G, M \& R pp.~185--208
+
+%\item {\bf \verb+chebfun+: Cramer}
+%
+%No need for nonlinear problems, singular problems or theory.
+%
+%Some references: http://www2.maths.ox.ac.uk/chebfun/guide/  Ch 1, 2, 7
+
+\item {\bf Cubic splines}
+
+Piecewise polynomial interpolation, splines, natural/clamped/not-a-knot splines
+
+No need for: B-splines, Bezier splines, shape-preserving splines
+
+Some references: S \& M Ch 11, Heath \S 7.4, Moler \S3.2-3.6, KC \S 6.3-6.4
+
+
+
+\item {\bf Root-finding}
+
+Bisection, Newton's method, secant method, IQI, hybrid method (\verb+fzero+)
+
+1D only
+
+Some references: S \& M Ch1, A \& H \S 3.2-3.3, Moler \S 4.2-4.8
+
+%\item {\bf Variational crimes: ??}
+%
+%Numerical quadrature of stiffness matrices, curved boundaries
+%
+%No need for : non-conforming elements
+%
+%Some references: Gockenbach \S5.5, Johnson Ch 12 
+
+\item  {\bf Direct methods for solving sparse linear systems}
+
+Mention: ordering ---  sparse Cholesky, minimum degree, 
+ 
+ No need for: sparse LU, nested dissection
+
+Some references:  Iserles Ch. 11,  Gockenbach Ch. 10
+
+\item {\bf Stationary iterative methods for solving linear systems}
+
+Mention:		Jacobi method; 
+				Gauss-Seidel; 
+				SOR
+
+Some references: 
+
+				KC \S 4.6;
+				BF \S 7.3;
+				Gockenbach Ch 12;
+				Iserles \S 12.1--12.3
+				
+\item {\bf Iterative methods for nonsymmetric linear systems}
+ 	
+Mention: CGNR, CGNE, GMRES (basics)
+
+No need for: details on  implementation, preconditioned  GMRES 
+
+References: Kelley \S 2.6, 3.1--2, 3.4;  Trefethen \& Bau Lecture 35.
+
+
+\item {\bf Multigrid iteration}
+
+Mention:		smoothers, V-cycle, W-cycle, full MG
+ 
+No need for:	nonlinear multigrid (FAS)
+
+Some references: 
+			Iserles Ch. 13; Gockenbach Ch. 13;   Briggs
+			
+
+\item {\bf Simple methods for finding eigenvalues/eigenvectors}
+
+Mention:			Jacobi method;
+				power method;
+				deflation;
+				inverse iteration
+ 
+No need for:	QR method;
+				SVD
+
+Some references: 
+
+				KC \S 5.1;
+				Heath \S 4.1-4.3;
+				BF \S 9.2;
+				Atkinson \S 9.2,9.6;
+				NR1 \S 11.1,11.7		
+				
+			
+ \item {\bf Adaptive Method of Lines/moving mesh}
+ 
+ 1D only, error equidistribution
+ 
+ Some references: Vande Wouwer, Saucez \& Schiesser Ch 1
+
+\item {\bf Stiff  solvers}
+
+Mention:  A-stability, L-stability, RKC methods.
+
+No need for: Implicit RK methods
+
+Some references: Iserles Ch 4;  A \& P: \S 3.3--3.7;  Leveque Ch. 8
+
+\item {\bf Spectral methods for elliptic PDEs}
+
+Discuss at least Chebyshev methods
+
+Some references: Iserles Ch 10
+
+
+\item {\bf Discontinuous Galerkin methods}
+
+1D case only 
+
+Some references: Hesthaven \& Warburton \S 2.1-2.2,  3.1-3.5
+
+
+
+
+\item {\bf Finite volume methods (Generalized difference methods)}
+ 
+
+1D case only
+
+Some reference: Li, Chen \& Wu \S 2.1-2.2.
+
+ 
+\item{\bf Mixed finite elements for Stokes flows}
+
+Mention: Mass and momentum conservation, choice of basis functions
+
+No need for: Navier Stokes, existence of solutions
+
+Some References: Elman \S5, 6
+
+
+\item {\bf FEM for linear elasticity}
+
+Mention: governing equations, weak formulation, mesh locking
+
+No need for:  convergence results, plate theory
+
+Some references: Johnson \S 5.1;    Gockenbach \S 2.5, 9.2, 9.3
+
+
+
+
+
+
+ 
+% \item{\bf PDE methods for American options: Lam}
+% 
+% Mention:  Linear complementarity problem, the optimal exercise boundary,   projected SOR. 
+% 
+% Some references: Wilmott Ch 7, 9
+% 
+  \item{\bf Methods for stochastic ODEs}
+ 
+ Mention : Brownian paths, Euler-Maruyama method, strong vs weak convergence. 
+ 
+ No need for:  Milstein method
+  
+  Some references: Higham 
+% 
+%\item{\bf  Legendre spectral methods}
+%
+%Legendre collocation, Legendre Galerkin method, Nodal continuous Galerkin method, 
+%Nodal discontinuous Galerkin method. 
+%
+%No need for : implementation details, anything beyond 1 space dimension.
+%
+%Some references: Kopriva \S 4.4--4.7
+% 
+%  \item{\bf Methods for the time-dependent Schrodinger equation: Wilson}
+%  
+% Mention: Crank-Nicolson, Split step methods , esp. split step fourier method (SSFM)
+% 
+% No need for:   symplectic methods (Yoshida/Suzuki)
+% 
+% Some references: NR1 \S17.2, Garcia \S 8.2, Berendsen \S 5.2, other?
+
+% \item{\bf A posteriori error  indicators/estimators}
+%
+  \item{\bf Fast Poisson solvers}
+
+
+Mention: FFT based fast solver for 5-point stencil
+
+No need for: FFT based fast solver for  9-point stencil
+
+Some reference: Iserles \S 15.1, Demmel's Lecture 24
+
+\end{enumerate}
+
+
+%\vfill
+
+\vspace{1em}
+
+\textbf{References (note these are not compulsary, just a place to start looking if you're stuck)}: 	\\
+
+
+
+
+	 	AMR: Ascher, Mattheij \& Russell, {\em Numerical Solution of BVPs for ODEs},  SIAM, 1987.
+		
+		
+		\vspace{0.5em}
+
+		A \& P: Ascher \& Petzold, {\em Computer Methods for ODE and DAEs}, SIAM, 1998.
+		
+		
+%		\vspace{0.5em}
+
+%		Atkinson,	{\em Intro to Numerical Analysis}, 2nd ed., 1989
+		
+		
+		\vspace{0.5em}
+
+		A \& H: Atkinson \& Han, {\em Elementary Numerical analysis,} 3rd ed., Wiley, 2004.
+		
+		
+		\vspace{0.5em}
+
+		
+		Briggs, {\em  A multigrid tutorial}, SIAM, 1987.
+		
+		
+		\vspace{0.5em}
+
+		
+		BF:	Burden \& Faires, {\em Numerical Analysis}, 5th ed., 1993.
+		
+		
+				\vspace{0.5em}
+
+		
+		Demmel,  \url{https://people.eecs.berkeley.edu/~demmel/cs267/lecture24/lecture24.html}
+		
+		
+		\vspace{0.5em}
+
+		
+		Elman, Silvester \& Wathen, {\em Finite Elements and Fast Iterative Solvers : with Applications in Incompressible Fluid Dynamics} OUP, 2005.
+		
+		
+		\vspace{0.5em}
+
+		G, M \& R: Gautschi, Mastroianni and Rassias, {\em Approximation and Computation}, Springer, 2011
+		
+		\vspace{0.5em}
+		
+		Gockenbach, {\em Understanding and implementing the finite element method}, SIAM, 2006.
+		
+		
+		
+		
+		\vspace{0.5em}
+
+		
+		Heath,  {\em SCIENTIFIC COMPUTING: AN INTRODUCTORY SURVEY}, SIAM, Revised Second Edition, 2018.
+		
+		\vspace{0.5em}
+
+		
+		Hesthaven \& Warburton, {\em Nodal Discontinuous Galerkin Methods}, Springer, 2008.
+		
+		
+		\vspace{0.5em}
+
+
+
+		Higham , {\em An Algorithmic Introduction to Numerical Simulation of SDEs}, SIAM Review, 2001.
+		
+		\vspace{0.5em}
+
+		
+		Li, Chen, \& Wu,{\em  Generalized Difference Methods for Differential Equations}, CRC Press, 2000.
+		
+		
+		\vspace{0.5em}
+
+		
+		Iserles, {\em A first course in the numerical analysis of differential equations}, CUP, 2nd ed, 2008.
+		
+		
+		\vspace{0.5em}
+
+		
+		Johnson, {\em Numerical solution of partial differential equations by the finite element method}, CUP, 1992.	
+		
+		
+		\vspace{0.5em}
+
+		
+		Kelley, {\em Iterative methods for Linear and Nonlinear Equations}, SIAM, 1995. 
+		
+		\vspace{0.5em}
+
+		
+		KC: 	Kincaid \& Cheney, {\em Numerical Analysis}, 3rd ed., Brooks-Cole, 2002.
+		
+		
+		
+		\vspace{0.5em}
+
+
+
+		% Kopriva, {\em Implementing spectral methods for PDEs}, Springer, 2009.
+		
+		%Lele, {\em Compact Finite Difference Schemes with Spectral-like Resolution}, J. Comp. Phys. 1992.
+		
+		Leveque, {\em Finite Difference Methods for Ordinary and Partial Differential Equations}, SIAM 2007.
+		
+		
+		\vspace{0.5em}
+
+		
+		Lor, C.Y. {\em Moving Mesh Methods for Time-Dependent PDEs},  Ph. D. Thesis, 2010.
+		
+		
+		
+		\vspace{0.5em}
+
+
+
+	%	Moin, {\em Fundamentals of Engineering Numerical Analysis}, CUP, 2001.
+		
+		Moler, {\em Numerical Computing with MATLAB}, SIAM, 2004.
+		
+		
+		\vspace{0.5em}
+
+
+		 NR1:  Press et. al. {\em Numerical Recipes in C}, 1st ed., 1988.
+		 
+		 		\vspace{0.5em}
+
+		
+		S \& M: S\"{u}li \& Myers, {\em An introduction to Numerical Analysis}, CUP, 2003.
+		
+		
+		\vspace{0.5em}
+
+
+			% SB		Stoer \& Bulirsch		"Intro to Numerical Analysis", 2nd ed., 1993
+				 Trefethen \& Bau, {\em Numerical Linear Algebra}, SIAM 1997.
+				 
+				 
+				 \vspace{0.5em}
+
+				 
+				 Vande Wouwer, Saucez \& Schiesser , {\em The Adaptive method of Lines}, Chapman \& Hall Ch 1.
+				 
+				 
+				 \vspace{0.5em}
+
+				  
+				 
+				% Wilmott, Howison \& DeWynne, {\em  The mathematics of financial derivatives}, CUP, 1995.
+
+  		 % KMN Kahaner, Moler, Nash "Numerical methods and software" 1989
+ 
+\end{document}

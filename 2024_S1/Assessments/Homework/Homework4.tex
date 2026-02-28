@@ -1,0 +1,68 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+                             % The preamble begins here.
+\title{School of Mathematics and Statistics
+\\ MAST90026
+Computational Differential Equations \\ 2024
+} 
+% Declares the document's title.
+%\author{Leslie Lamport}      % Declares the author's name.
+\date{}      % Deleting this command produces today's date.
+
+\textwidth=17.02cm
+\textheight=25cm
+\voffset=-3cm
+\hoffset=-0.75in
+\oddsidemargin 0.75in
+\evensidemargin 0.75in
+% Remove paragraph indent
+\setlength{\parindent}{0pt}
+
+%\renewcommand{\theenumi}{\alph{enumi}}
+\renewcommand{\theenumii}{\roman{enumii}}
+
+\newenvironment{pseudo}{\ttfamily \begin{tabbing} }{\end{tabbing}}
+
+%\setcounter{section}{0}
+
+
+\begin{document}             % End of preamble and beginning of text.
+
+\maketitle                   % Produces the title.
+
+\part*{ Homework 4 \\ Due: 11:00AM Wednesday, 27th March.}   
+
+This homework is worth 5\% of the total assessment in this subject.  
+You should submit copies of {\sc Matlab}  programs (include all files necessary for the programs to run) 
+and sufficient relevant output online through LMS (You may find the Matlab command publish useful!). Any hand written working should be scanned and converted to a PDF. 
+\medskip
+
+All files should be compressed into a single zip file \emph{with your student ID number in the file name}.
+
+\begin{enumerate}
+
+\item  For the case $D(x)=1, q(x)=0$ and $\{\phi_j\}$ are the hat functions on a non uniform mesh, show that the  stiffness matrix {\bf K} takes the form
+\begin{eqnarray*}
+K_{ii} & = & \frac{1}{h_i} + \frac{1}{h_{i-1}},   \\
+K_{i,i-1} = K_{i-1,i} & = & -\frac{1}{h_{i-1}},  \\
+K_{ij} &=& 0,\ \ \ \  |i-j|>1,
+\end{eqnarray*}
+i.e. {\bf K} is tridiagonal and symmetric.
+
+\item  Write a MATLAB function \verb+FEj=elem_load(f,xj,xjp1)+
+that computes, using Gaussian quadrature of order $3$, the element load vector for linear elements
+\[ \mathbf{F}_{E_j} = \left[\begin{array}{c}\int_{x_j}^{x_{j+1}} f(x) \phi_j \ dx\\
+\int_{x_j}^{x_{j+1}} f(x) \phi_{j+1} \ dx\end{array}\right]. \]
+
+You should submit your code. (Hint: the Gaussian quadrature on $[0, 1]$ of order 3 is: $(x_0,\omega_0) = (-\frac{1}{2}\sqrt {\frac {3}{5}}+\frac{1}{2}, \frac{5}{18}), (x_1,\omega_1) = (\frac{1}{2}, \frac{8}{18}), (x_2,\omega_2) = (\frac{1}{2}\sqrt {\frac {3}{5}}+\frac{1}{2}, \frac{5}{18}) $)
+
+\item  Solve the Problem 
+\[ u''  - sin(u) = -1;\ \ \ u(0)=0;\ u(1)=1, \]
+using a finite difference method and newton method. Submit your code and a plot of the solution.
+
+\end{enumerate}
+
+
+ 
+\end{document}

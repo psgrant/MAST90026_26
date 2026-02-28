@@ -1,0 +1,89 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+                             % The preamble begins here.
+\title{School of Mathematics and Statistics
+\\ MAST90026
+Computational Differential Equations \\ 2024
+} 
+% Declares the document's title.
+%\author{Leslie Lamport}      % Declares the author's name.
+\date{}      % Deleting this command produces today's date.
+
+\textwidth=17.02cm
+\textheight=25cm
+\voffset=-3cm
+\hoffset=-0.75in
+\oddsidemargin 0.75in
+\evensidemargin 0.75in
+% Remove paragraph indent
+\setlength{\parindent}{0pt}
+
+%\renewcommand{\theenumi}{\alph{enumi}}
+\renewcommand{\theenumii}{\roman{enumii}}
+
+\newenvironment{pseudo}{\ttfamily \begin{tabbing} }{\end{tabbing}}
+
+%\setcounter{section}{0}
+
+
+\begin{document}             % End of preamble and beginning of text.
+
+\maketitle                   % Produces the title.
+
+\part*{ Homework 2 \\ Due: 11:00AM Wednesday, 13th March.}   
+
+This homework is worth 5\% of the total assessment in this subject.  
+You should submit copies of {\sc Matlab}  programs (include all files necessary for the programs to run) 
+and sufficient relevant output online through LMS (You may find the Matlab command publish useful!). Any hand written working should be scanned and converted to a PDF. 
+\medskip
+
+All files should be compressed into a single zip file \emph{with your student ID number in the file name}.
+
+
+
+\begin{enumerate}
+\item 
+Write a code  to solve the mixed BC problem
+\[ u'' + p u' + q u = r;\ u(a) - u'(a)= \alpha,\ u(b) = \beta,    \] 
+ where $p, q, r, a, b, \alpha, \beta$ are constants.
+ 
+ Use
+  \begin{itemize}
+\item [(i)] a first order FD formula
+\item [(ii)] a 2nd order method
+\end{itemize}
+to handle the Robin BC at $x=a$.
+
+Test your code on problem 
+\[ u'' - u = 0;\ \ u(0)-u'(0) = 0 , u(1)  = \exp(1),  \] 
+ whose exact solution is $u(x) = \exp(x) $ and plot the maximum grid error $\max |e_j|$ versus $N$ 
+as a log-log plot, for each method.
+
+%\item  Solve problem A from Homework 1 by hand using collocation with 1 collocation point at $x=1/2$ and the 2 BCs 
+%(3 conditions) to determine the polynomial of order 3 (quadratic)
+% \[ u(x) \approx c_0+c_1 x+c_2 x^2. \]
+% Plot your approximate answer versus the exact answer.
+ 
+ 
+\item  Write code to use collocation at Legendre Gaussian Lobatto points to solve the constant coefficient Dirichlet BVP:
+\[ u'' + p u' + q u = r;\ \ u(-1) = \alpha, u(1) = \beta,   \] 
+ where $p, q, r, \alpha, \beta$ are constants. You may use the file `\verb+cheb.m+'. 
+
+\begin{itemize}
+	\item [(a)]
+ Test your code on   problem A:
+\[ u'' - u = 0;\ \ u(-1) = 1, u(1) = 3,   \] 
+  whose exact solution is $\hat{u}(x) = 2\cosh (x) /\cosh (1)+\sinh (x) /\sinh (1)$. Inspect the solution visually by plotting both the numerical and exact solution on the same axes.
+  
+  \item[(b)] Approximate the error using $\lVert E\rVert_2 = \sqrt{\int_{-1}^{1} (u - \hat{u})^2dx }$ and an appropriate quadrature rule. Plot the error vs $N$. 
+ 
+
+ \item [(b)]  What change would you have to make to handle the problem with  
+ $u(a)=\alpha, u(b)=\beta$.
+ \end{itemize} 
+\end{enumerate}
+
+
+ 
+\end{document}

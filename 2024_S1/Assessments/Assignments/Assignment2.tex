@@ -1,0 +1,168 @@
+\documentclass[11pt]{article}
+                             % The preamble begins here.
+\title{School of Mathematics and Statistics
+\\MAST90026
+Computational Differential Equations \\ 2024
+} 
+% Declares the document's title.
+%\author{Leslie Lamport}      % Declares the author's name.
+\date{}      % Deleting this command produces today's date.
+
+\textwidth=17.02cm
+\textheight=25cm
+\voffset=-3cm
+\hoffset=-0.75in
+\oddsidemargin 0.75in
+\evensidemargin 0.75in
+% Remove paragraph indent
+\setlength{\parindent}{0pt}
+
+
+\renewcommand{\theenumi}{\alph{enumi}}
+\renewcommand{\theenumii}{\roman{enumii}}
+
+\newenvironment{pseudo}{\ttfamily \begin{tabbing} }{\end{tabbing}}
+
+%\setcounter{section}{0}
+
+\usepackage{mcode}
+
+\usepackage{amsmath}
+
+\begin{document}             % End of preamble and beginning of text.
+
+\maketitle                   % Produces the title.
+
+\part*{ Assignment 2: Elliptic PDEs \\ Due:  11AM Wednesday, May 1st.}   
+
+This assignment is worth 20\% of the total assessment in this subject.  
+You should submit copies of {\sc Matlab} programs (include all files necessary for the programs to run) 
+and sufficient relevant output online through LMS. All hand written working should be scanned and converted to a PDF. Your PDF should also include any tables, figures and comments or explanations of your results.
+\medskip
+
+All files should be compressed into a single zip file \emph{with your student ID number in the file name}.
+
+\medskip
+Throughout this assignment, you should assume the PDE you are solving is the model elliptic equation
+\[ -\nabla \cdot \left(D(x,y)\nabla u(x,y) \right) + q(x,y) u(x,y) = f(x,y) \]
+unless another equation is specifically stated in the question.
+
+\section{Elliptic equations by Finite Differences (4 marks)}
+
+\begin{enumerate}
+
+\item Write code to solve the Poisson equation
+\[-\nabla^2 u = f(x,y)\]
+on a general rectangle (with sides parallel to either the $x$ or $y$ axes) with inhomogeneous Dirichlet boundary conditions. Test your code for the case where the Poisson equation has the exact solution $u(x,y)=\exp(x+y)$ on $\Omega = (0, 1)\times (0, 2)$.  The right hand side function $f$ and inhomogeneous Dirichlet boundary condition $g$ are given by $u$.
+
+\item Modify your code in (a) to solve the following diffusion reaction equation
+\[ -\nabla^2 u  + (x^2+y^2)u = f(x,y), \] 
+with analytical solution
+\[ u = \exp(x^2+y^2). \]
+on $\Omega = (0, 1)\times (0, 2)$. The right hand side function $f$ and Dirichlet boundary condition $g$ are given by $u$.
+
+\end{enumerate}
+
+
+For both (a) and (b), discuss how the maximum grid error behaves with $\Delta x$ and $\Delta y$. You may find a \mcode{loglog} plot to be helpful.
+
+
+\newpage
+
+
+
+\section{Finite element methods in 2D (7 marks)}
+
+In this question you are asked to solve the model elliptic problem using linear finite elements on a conforming triangular mesh. 
+\begin{enumerate}
+\item Write Matlab functions with the following definitions
+
+\verb+ function F = elem_load(P1, P2, P3, f, quad_order)+
+
+\verb+ function M = elem_mass(P1, P2, P3, q, quad_order)+
+
+\verb+ function K = elem_stiff(P1, P2, P3, D, quad_order)+
+
+which calculate the element load vector, element mass matrix and element stiffness matrix respectively. The inputs \verb+P1+, \verb+P2+, \verb+P3+, \verb+f+, \verb+q+ and \verb+D+ are exactly as defined in the week 6 and 7 lab resources. The additional input \verb+quad_order+ may only take on the value of $1$ or $2$. If \verb+quad_order+ is 1 then you should use linearly accurate quadrature using the triangle vertices and if \verb+quad_order+ is 2 you should use the 3 point quadratically accurate quadrature rule as defined in class.
+
+\item write a Matlab function with the following declaration
+
+
+
+\hspace{-1em}\verb+function u = FEM_Elliptic_2D_Dirichlet(node, elem, Dfunc, qFunc, fFunc, gFunc, quad_order)+
+
+with the inputs defined exactly as given in the week 6 and 7 lab resources and \verb+quad_order+ as defined in (a). This function should solve the model elliptic equation with Dirichlet boundary conditions. We assume a rectangular domain with the rectangle sides parallel to either the $x$ or $y$ axes.
+
+\item Test your code from (b) for the Poisson equation with exact solution $u = \sin(x)\cos(4y)$ on the unit square with a uniform mesh constructed using the Matlab functions \verb+meshgrid+ and \verb+delaunay+. The governing equation and Dirichlet boundary conditions are defined by the exact solution. Perform a grid refinement analysis (i.e., increasing the number of points in both the $x$ and $y$ directions) for both linearly and quadratically accurate quadrature rules. For simplicity you may use the $\infty-$norm to calculate the error. Discuss the order of the error and any differences you observe between the quadrature schemes.
+
+
+\item Repeat the test of (b) on an unstructured mesh using the problem in (c). Use the matrices contained within \verb+unstructured_mesh+.
+
+
+
+\end{enumerate}
+
+
+
+
+\section{Finite element method for 2D nonlinear equation (4 marks)}
+Consider the following nonlinear equation 
+\begin{equation}\label{equ:nonlinear}
+-\nabla^2 u + u^2 = f(x, y)
+\end{equation}
+with inhomogeneous Dirichlet boundary condition $g$. We consider a 2D problem on the unit square  $\Omega = (0,1)\times (0, 1)$. We choose $f$ and $g$ such that the exact solution is $u = \exp(x+2y)$. 
+
+\begin{enumerate}
+
+\item  Given a current approximation $u_k$,  derive the linearised elliptic  equation at $u_{k+1}$ using quasilinearisation. 
+
+
+\item Solve the linearised elliptic equation and iterate until your solution converges by modifying the finite element method code that you wrote in Question 2(b). Use any \verb+node+ and \verb+elem+ definitions that you like but note that your choice will affect the convergence. In order to iterate you will need an initial guess of the solution. DO NOT choose the analytical solution as the initial guess otherwise you will get zero marks for this question part.
+
+\end{enumerate}
+
+
+
+
+\newpage
+
+\section{Galerkin equations with Robin boundary conditions (3 marks)}
+Consider the model elliptic equation over 2D domain $\Omega$ subject to the Robin boundary condition
+\[ a(x,y)u(x,y) + b(x,y) \boldsymbol{n}\cdot \nabla u = g(x,y) \]
+defined on the boundary $\delta\Omega$ where $b\neq 0$ anywhere on $\delta\Omega$.
+
+\vspace{0.5cm}
+Derive the Galerkin equations for a given basis $\{\phi_i\}$ where $i = 1, ... n$. Hint: you should not make any assumptions about the basis aside from the fact that $\phi_i \in H^1(\Omega)$ $\forall i$. You should not submit any code for this question.
+
+
+
+
+
+
+\section{Finite element methods using rectangular elements (2 marks)}
+In this question we will derive formulae for the stiffness matrix and load vector on rectangular elements.
+\begin{enumerate}
+\item Consider a rectangle defined by points $\{P_1, P_2, P_3, P_4 \}$ where $P_i = (x_i,y_i)$, $i = 1, ..., 4$.
+
+Derive the quantities $J_R$ and $b_R$ of the affine map $F_R$, i.e.,
+\[ (x,y) = F_R(\xi,\eta) \qquad \Leftrightarrow \qquad \begin{bmatrix}x\\y\end{bmatrix} = J_R \begin{bmatrix} \xi \\ \eta \end{bmatrix} + \vec{b}_R\]
+so that $F_R(0,0) = P_1$, $F_R(1,0) = P_2$, $F_R(1,1) = P_3$ and $F_R(0,1) = P_4$.
+
+Submit a simple piece of code with the declaration
+
+\verb+ function [JR, bR] = rectangle_map(P1, P2, P3, P4)+
+
+that returns $J_R$ and $\vec{b}_R$ for a given set of points.
+
+Hint: an arbitrary rectangle only has 5 degrees of freedom yet the mapping conditions give rise to 8 equations. However you may assume that these points will always define a rectangle ensuring that the mapping exists and is unique.
+
+\item Using the nodal basis functions for a rectangular bilinear element as given in the lecture slides, write down analytic expressions for the element stiffness matrix and element load vector that only involve integrals over the unit square.
+
+\item For the case where $D(x,y) = 1$, $q(x,y)=0$, $f(x,y)=2$, $P_1=(1,1)$, $P_2 = (2, 3)$, $P_3 = (1, 7/2)$ and $P_4 = (0, 3/2)$, evaluate the element stiffness matrix and element load vector. Your final answer should be fully evaluated, i.e., contain only numbers. Note you may want to do this calculation with the aid of {\sc Matlab}/other computer software because the calculations are fairly lengthy, but your final answer must be exact.
+
+ 
+\end{enumerate}
+
+
+
+\end{document}

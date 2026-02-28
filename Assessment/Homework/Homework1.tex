@@ -1,0 +1,100 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tgpagella}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue]{hyperref}
+    % The preamble begins here.
+\title{School of Mathematics and Statistics
+\\ MAST90026
+Computational Differential Equations \\ 2026
+} 
+% Declares the document's title.
+%\author{Leslie Lamport}      % Declares the author's name.
+\date{}      % Deleting this command produces today's date.
+
+\textwidth=17.02cm
+\textheight=25cm
+\voffset=-3cm
+\hoffset=-0.75in
+\oddsidemargin 0.75in
+\evensidemargin 0.75in
+% Remove paragraph indent
+\setlength{\parindent}{0pt}
+\hypersetup{
+  colorlinks, linkcolor=blue
+}
+
+%\renewcommand{\theenumi}{\alph{enumi}}
+\renewcommand{\theenumii}{\roman{enumii}}
+
+\newenvironment{pseudo}{\ttfamily \begin{tabbing} }{\end{tabbing}}
+
+%\setcounter{section}{0}
+
+
+\begin{document}             % End of preamble and beginning of text.
+
+\maketitle                   % Produces the title.
+\vspace{-20mm}
+\part*{ Homework 1 \\ Due: 11:59PM Friday, 13th March.}   
+
+This homework is worth 5\% of the total assessment in this subject. Submit your hand working and published MATLAB code* as a combined PDF file through Canvas.
+
+\medskip
+*Use the \texttt{publish} command (or use the GUI) to run your script and save it as a PDF.
+
+\medskip
+Late submissions will not be marked and a grade of 0 will be awarded. If there are extenuating circumstances apply for an extension or special consideration (more information available in the assessment adjustments page in the student support module).
+\medskip
+
+\hrule
+
+\medskip
+\begin{enumerate}
+\item 
+Consider the matrix $A\in \mathbb{R}^{N\times N}$ which is  obtained by using central finite difference method to discretise $u''=f(x), u(0) = u(1) = 0$, i.e.
+\begin{equation}
+	A= \frac{1}{h^2}\begin{bmatrix}
+		-2 & 1 & & & &\\
+		1& -2 & 1 & & &\\
+		& & \ddots & \ddots & \ddots & &\\
+		& & & 1 & -2 &1\\
+		& & & & 1 & -2 &\\
+	\end{bmatrix}
+\end{equation}
+\begin{itemize}
+	\item [(a)] Denote the $k$th eigenvalue of A by $\lambda^k$ and the corresponding eigenvalue vector is denoted by $\mathbf{u}^k$. Find $\lambda^k$ by assuming  $\mathbf{u}^k_j = \sin(\frac{k\pi j}{N+1})$, $j=1, \ldots, N;$  
+	\item [(b)] Use the result in (a) to prove that $\|A^{-1}\|_2 = \frac{1}{\pi^2} + O(h^2)$.
+\end{itemize}
+
+\item  Consider the finite difference scheme for the 1D steady state convection-diffusion equation
+$$
+\begin{aligned}
+&\epsilon u^{\prime \prime}-u^{\prime}=-1, \quad 0<x<1 \\
+&u(0)=1, \quad u(1)=3
+\end{aligned}
+$$
+(a) Verify the exact solution is
+$$
+u(x)=1+x+\left(\frac{e^{x / \epsilon}-1}{e^{1 / \epsilon}-1}\right)
+$$
+(b) Compare the following two finite difference methods for $\epsilon=0.3,0.1,0.05$, and $0.0005$.
+\begin{itemize}
+	\item [(i)] Central finite difference scheme:
+$$
+\epsilon \frac{U_{i-1}-2 U_{i}+U_{i+1}}{h^{2}}-\frac{U_{i+1}-U_{i-1}}{2 h}=-1
+$$\newpage
+\item [(ii)] Central-upwind finite difference scheme:
+$$
+\epsilon \frac{U_{i-1}-2 U_{i}+U_{i+1}}{h^{2}}-\frac{U_{i}-U_{i-1}}{h}=-1
+$$
+\end{itemize}
+Do a grid refinement analysis for each case to determine the order of accuracy. Include plots of $\|\boldsymbol{E}\|_2$ vs $h$.
+
+(c) From your observations, in your opinion which method is better? 
+
+\end{enumerate}
+
+
+ 
+\end{document}

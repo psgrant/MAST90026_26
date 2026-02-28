@@ -1,0 +1,84 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tgpagella}
+\usepackage{physics}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue]{hyperref}
+    % The preamble begins here.
+\title{School of Mathematics and Statistics
+\\ MAST90026
+Computational Differential Equations \\ 2026
+} 
+% Declares the document's title.
+%\author{Leslie Lamport}      % Declares the author's name.
+\date{}      % Deleting this command produces today's date.
+
+\textwidth=17.02cm
+\textheight=25cm
+\voffset=-3cm
+\hoffset=-0.75in
+\oddsidemargin 0.75in
+\evensidemargin 0.75in
+% Remove paragraph indent
+\setlength{\parindent}{0pt}
+\hypersetup{
+  colorlinks, linkcolor=blue
+}
+
+%\renewcommand{\theenumi}{\alph{enumi}}
+\renewcommand{\theenumii}{\roman{enumii}}
+
+\newenvironment{pseudo}{\ttfamily \begin{tabbing} }{\end{tabbing}}
+
+%\setcounter{section}{0}
+
+
+\begin{document}             % End of preamble and beginning of text.
+
+\maketitle                   % Produces the title.
+\vspace{-20mm}
+\part*{Homework 4 \\Due: 11:59PM \textcolor{red}{Thursday, 2nd April.}}   
+
+This homework is worth 5\% of the total assessment in this subject. Submit your hand working and published MATLAB code* as a combined PDF file through Canvas.
+
+\medskip
+*Use the \texttt{publish} command (or use the GUI) to run your script and save it as a PDF.
+
+\medskip
+Late submissions will not be marked and a grade of 0 will be awarded. If there are extenuating circumstances apply for an extension or special consideration (more information available in the assessment adjustments page in the student support module).
+\medskip
+
+\hrule
+\medskip
+
+
+
+\begin{enumerate}
+
+\item  For the case $D(x)=1, q(x)=0$ and $\{\phi_j\}$ are the hat functions on a non-uniform mesh, show that the  stiffness matrix {\bf K} takes the form
+\begin{eqnarray*}
+K_{ii} & = & \frac{1}{h_i} + \frac{1}{h_{i-1}},   \\
+K_{i,i-1} = K_{i-1,i} & = & -\frac{1}{h_{i-1}},  \\
+K_{ij} &=& 0,\ \ \ \  |i-j|>1,
+\end{eqnarray*}
+i.e. {\bf K} is tridiagonal and symmetric.
+
+\item  Write a MATLAB function \verb+FEj=elem_load(f,xj,xjp1)+
+that computes, using Gaussian quadrature of order $3$, the element load vector for linear elements
+\[ \mathbf{F}_{E_j} = \left[\begin{array}{c}\displaystyle\int_{x_j}^{x_{j+1}} f(x) \phi_j \ dx\\[5mm]
+\displaystyle\int_{x_j}^{x_{j+1}} f(x) \phi_{j+1} \ dx\end{array}\right]. \]
+
+You should submit your code. Hint: the Gaussian quadrature on $[0, 1]$ of order 3 is:
+\begin{equation*}
+    \qty(x_0,\omega_0) = \qty(-\frac{1}{2}\sqrt {\frac {3}{5}}+\frac{1}{2}, \frac{5}{18}),\quad \qty(x_1,\omega_1) = \qty(\frac{1}{2}, \frac{8}{18}),\quad \qty(x_2,\omega_2) = \qty(\frac{1}{2}\sqrt {\frac {3}{5}}+\frac{1}{2}, \frac{5}{18}).
+\end{equation*}
+
+\item  Solve the Problem 
+\[ u''  - \sin(u) = -1;\ \ \ u(0)=0;\ u(1)=1, \]
+using a finite difference method and newton method. Submit your code and a plot of the solution.
+
+\end{enumerate}
+
+
+ 
+\end{document}

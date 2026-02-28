@@ -1,0 +1,77 @@
+\contentsline {section}{Preface}{i}{section*.1}%
+\contentsline {section}{\numberline {0}Introduction}{1}{section.0}%
+\contentsline {subsection}{\numberline {0.1}ODE IVP Revision}{4}{subsection.0.1}%
+\contentsline {section}{\numberline {1}1D Boundary Value Problems}{5}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Finite Difference Methods}{8}{subsection.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1}Finite Difference Formulae}{8}{subsubsection.1.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.2}Discretisation Errors}{10}{subsubsection.1.1.2}%
+\contentsline {subsubsection}{\numberline {1.1.3}Solution off the Mesh}{11}{subsubsection.1.1.3}%
+\contentsline {subsubsection}{\numberline {1.1.4}A linear BVP with Dirichlet BCs}{12}{subsubsection.1.1.4}%
+\contentsline {subsubsection}{\numberline {1.1.5}Error analysis}{15}{subsubsection.1.1.5}%
+\contentsline {subsubsection}{\numberline {1.1.6}Other boundary conditions}{19}{subsubsection.1.1.6}%
+\contentsline {subsection}{\numberline {1.2}Method of Weighted Residuals}{20}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Collocation methods}{22}{subsection.1.3}%
+\contentsline {subsubsection}{\numberline {1.3.1}Spectral Collocation}{22}{subsubsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.4}Galerkin Methods}{27}{subsection.1.4}%
+\contentsline {subsubsection}{\numberline {1.4.1}Weak Formulation}{27}{subsubsection.1.4.1}%
+\contentsline {subsubsection}{\numberline {1.4.2}Galerkin Equations}{28}{subsubsection.1.4.2}%
+\contentsline {subsubsection}{\numberline {1.4.3}Finite Element Methods}{31}{subsubsection.1.4.3}%
+\contentsline {subsection}{\numberline {1.5}Handling nonlinearities}{37}{subsection.1.5}%
+\contentsline {subsubsection}{\numberline {1.5.1}Nonlinear equations}{38}{subsubsection.1.5.1}%
+\contentsline {subsubsection}{\numberline {1.5.2}Fixed point (Picard) iteration}{39}{subsubsection.1.5.2}%
+\contentsline {subsubsection}{\numberline {1.5.3}Newton's Method}{40}{subsubsection.1.5.3}%
+\contentsline {subsubsection}{\numberline {1.5.4}Improving on Newton}{42}{subsubsection.1.5.4}%
+\contentsline {subsubsection}{\numberline {1.5.5}Quasi-linearisation}{45}{subsubsection.1.5.5}%
+\contentsline {section}{\numberline {2}2D Elliptic PDEs}{46}{section.2}%
+\contentsline {subsubsection}{\numberline {2.0.1}2D PDEs}{46}{subsubsection.2.0.1}%
+\contentsline {subsection}{\numberline {2.1}FDM for elliptic equation}{47}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Discretising the domain}{48}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}Ordering unknowns:}{49}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.3}Error Analysis}{53}{subsubsection.2.1.3}%
+\contentsline {subsubsection}{\numberline {2.1.4}2D Example}{54}{subsubsection.2.1.4}%
+\contentsline {subsubsection}{\numberline {2.1.5}Other topics}{55}{subsubsection.2.1.5}%
+\contentsline {subsection}{\numberline {2.2}Finite Element Methods in 2D}{58}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Step 1: weak form}{59}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Step 2: trial/test spaces}{60}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}Step 3: Galerkin equations}{61}{subsubsection.2.2.3}%
+\contentsline {subsubsection}{\numberline {2.2.4}Step 4: mesh generation}{62}{subsubsection.2.2.4}%
+\contentsline {subsubsection}{\numberline {2.2.5}Step 5: finite element space}{64}{subsubsection.2.2.5}%
+\contentsline {subsubsection}{\numberline {2.2.6}Other basis functions}{66}{subsubsection.2.2.6}%
+\contentsline {subsubsection}{\numberline {2.2.7}Practice time}{68}{subsubsection.2.2.7}%
+\contentsline {subsection}{\numberline {2.3}Sparse solvers}{70}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Direct Sparse methods}{71}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}Iterative solvers}{72}{subsubsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.3}Krylov subspace methods}{73}{subsubsection.2.3.3}%
+\contentsline {subsubsection}{\numberline {2.3.4}Gradient method (steepest descent)}{74}{subsubsection.2.3.4}%
+\contentsline {subsubsection}{\numberline {2.3.5}Conjugate Gradient method}{79}{subsubsection.2.3.5}%
+\contentsline {subsubsection}{\numberline {2.3.6}Preconditioned conjugate gradient (PCG)}{88}{subsubsection.2.3.6}%
+\contentsline {section}{\numberline {3}Evolution PDEs (in 1+1 D)}{92}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Semi-discretisation}{93}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Using Finite Difference to semi-discretize}{94}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Using FEM to semi-discretize}{96}{subsubsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.3}Recap of IVP solvers}{97}{subsubsection.3.1.3}%
+\contentsline {subsubsection}{\numberline {3.1.4}Linear Stability Analysis}{99}{subsubsection.3.1.4}%
+\contentsline {subsubsection}{\numberline {3.1.5}The Heat Equation}{101}{subsubsection.3.1.5}%
+\contentsline {subsubsection}{\numberline {3.1.6}The Heat Equation: Seperable Solutions}{102}{subsubsection.3.1.6}%
+\contentsline {subsection}{\numberline {3.2}Fully discrete: Parabolic PDEs}{103}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}FTCS (Forward Time, Central Space)}{104}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}BTCS (Backwards Time, Central Space)}{106}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}Crank-Nicholson Method (Implicit Trapezoid Rule)}{107}{subsubsection.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.4}Von Neumann Stability Analysis}{108}{subsubsection.3.2.4}%
+\contentsline {subsubsection}{\numberline {3.2.5}1+2D parabolic problem}{110}{subsubsection.3.2.5}%
+\contentsline {subsubsection}{\numberline {3.2.6}LOD: Locally One-Dimensional}{111}{subsubsection.3.2.6}%
+\contentsline {subsubsection}{\numberline {3.2.7}ADI: Alternative Direction Implicit}{112}{subsubsection.3.2.7}%
+\contentsline {subsection}{\numberline {3.3}Fully discrete: Hyperbolic PDEs}{113}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}The Advection Equation}{114}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}Method of Lines}{115}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}Leapfrog Methods}{116}{subsubsection.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.4}Lax-Friedrichs Method (LxF)}{117}{subsubsection.3.3.4}%
+\contentsline {subsubsection}{\numberline {3.3.5}Lax-Wendroff Method (LxW)}{119}{subsubsection.3.3.5}%
+\contentsline {subsubsection}{\numberline {3.3.6}Upwind Methods}{120}{subsubsection.3.3.6}%
+\contentsline {subsubsection}{\numberline {3.3.7}Upwind Methods: Alternative derivation}{121}{subsubsection.3.3.7}%
+\contentsline {subsubsection}{\numberline {3.3.8}Upwind Methods: Domain of Dependence}{122}{subsubsection.3.3.8}%
+\contentsline {subsubsection}{\numberline {3.3.9}CFL Condition (Courant--Friedrichs--Lewy, 1928)}{123}{subsubsection.3.3.9}%
+\contentsline {section}{\numberline {4}Tips for Giving a Good Talk}{124}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Content}{124}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Presentation}{124}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Time}{124}{subsection.4.3}%

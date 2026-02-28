@@ -1,0 +1,210 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+
+
+                             % The preamble begins here.
+\title{\LARGE \textbf{Interpolation}
+} 
+\author{Dr. Hailong Guo}
+\date{}      % Deleting this command produces today's date.
+
+%\textwidth=17.02cm
+%\textheight=25cm
+%\voffset=-3cm
+%\hoffset=-0.75in
+%\oddsidemargin 0.75in
+%\evensidemargin 0.75in
+
+%\renewcommand{\theenumi}{\alph{enumi}}
+
+%\newenvironment{pseudo}{\ttfamily \begin{tabbing} }{\end{tabbing}}
+
+%\setcounter{section}{0}
+
+\begin{document}             % End of preamble and beginning of text.
+
+\maketitle                   % Produces the title.
+
+
+
+\section{Definition of interpolation}
+Let us focus on the case of approximating a given function by a polynomial of degree at most n. Then the \textit{interpolation problem} can be stated as follows: Given $n+1$ distinct points, $x_0$, $x_1$, ..., $x_n$ called nodes and corresponding values $f_0$, $f_1$, $\dots$, $f_n$, ﬁnd a polynomial of degree at most $n$, $P_n(x)$, which satisﬁes (the interpolation property)
+\begin{equation}\label{equ:ip}
+	\begin{split}
+	& P_n(x_0) = f_0 \\
+	& P_n(x_1) = f_1 \\
+	& \vdots \\
+	& P_n(x_n) = f_n.
+	\end{split}
+\end{equation}
+
+
+
+
+
+Let us represent such polynomial as $P_n(x) = a_0+a_1x+· · ·+a_nx^n$.  Then, the interpolation property means
+\begin{equation}
+\begin{split}
+		&a_0+a_1x_0+· · ·+a_nx_0^n = f_0 \\
+		&a_0+a_1x_1+· · ·+a_nx_1^n = f_1 \\
+		\vdots \\
+		&a_0+a_1x_n+· · ·+a_nx_n^n = f_n \\
+\end{split}
+\end{equation}
+
+This is a linear system of $n+1$ equations in $n+1$ unknowns (the polynomial coeﬃcients $a_0, a_1, . . . , a_n$). In matrix form:
+\begin{equation}
+	\begin{bmatrix}
+		x_0 & x_0& x_0^2 &\cdots & x_0^n \\
+		x_1 & x_1& x_1^2 &\cdots & x_1^n \\
+		\vdots &\vdots  &\vdots  &\ddots  &\vdots \\
+		x_n & x_n& x_n^2 &\cdots & x_n^n \
+	\end{bmatrix}
+	\begin{bmatrix}
+		a_0 \\
+		a_1\\
+		\vdots \\
+		a_n
+	\end{bmatrix}
+	= 
+	\begin{bmatrix}
+		f_0 \\
+		f_1\\
+		\vdots \\
+		f_n
+	\end{bmatrix}
+\end{equation}
+
+Then our question is that  does the linear system have a unique solution? The answer is yes. The reason is that the determinant is nonzero since we assume $x_0, x_1, \ldots, x_n$ are distinct. 
+
+
+
+
+In general, we often write the data as  $(x_0, f_0), (x_1, f_1)$, etc. From the above, it looks like that we need to solve a linear system to find the interpolating polynomial $P_n(x)$. But it turns out that it is not necessary. We look at the following examples.
+
+
+\begin{example}
+	 As an illustration let us consider interpolation by a linear polynomial, $P_{1}(x)$. Suppose we are given $\left(x_{0}, f_{0}\right)$ and $\left(x_{1}, f_{1}\right)$. We can write it in a the following form:
+\begin{equation}
+P_{1}(x)=\frac{x-x_{1}}{x_{0}-x_{1}} f_{0}+\frac{x-x_{0}}{x_{1}-x_{0}} f_{1}	
+\end{equation}
+
+Clearly, this polynomial has degree at most 1 and satisfies the interpolation property:
+\begin{align}
+	&P_{1}\left(x_{0}\right)=f_{0}\\
+	&P_{1}\left(x_{1}\right)=f_{1}
+\end{align}
+
+\end{example}
+
+
+
+\begin{example}
+	 Given $\left(x_{0}, f_{0}\right),\left(x_{1}, f_{1}\right),\left(x_{2}, f_{2}\right)$ let us construct $P_{2}(x)$, the polynomial of degree at most 2 which interpolates these points. The way we have written $P_{1}(x)$ in (3) is suggestive of how to explicitly write $P_{2}(x)$ :
+$P_{2}(x)=\frac{\left(x-x_{1}\right)\left(x-x_{2}\right)}{\left(x_{0}-x_{1}\right)\left(x_{0}-x_{2}\right)} f_{0}+\frac{\left(x-x_{0}\right)\left(x-x_{2}\right)}{\left(x_{1}-x_{0}\right)\left(x_{1}-x_{2}\right)} f_{1}+\frac{\left(x-x_{0}\right)\left(x-x_{1}\right)}{\left(x_{2}-x_{0}\right)\left(x_{1}-x_{1}\right)} f_{2} .$
+If we define
+\begin{align}
+&l_{0}^{(2)}(x)=\frac{\left(x-x_{1}\right)\left(x-x_{2}\right)}{\left(x_{0}-x_{1}\right)\left(x_{0}-x_{2}\right)}\label{equ:l21} \\
+&l_{1}^{(2)}(x)=\frac{\left(x-x_{0}\right)\left(x-x_{2}\right)}{\left(x_{1}-x_{0}\right)\left(x_{1}-x_{2}\right)}\label{equ:l22} \\
+&l_{2}^{(2)}(x)=\frac{\left(x-x_{0}\right)\left(x-x_{1}\right)}{\left(x_{2}-x_{0}\right)\left(x_{2}-x_{1}\right)}\label{equ:l23}
+\end{align}
+then we simply have $$ P_{2}(x)=l_{0}^{(2)}(x) f_{0}+l_{1}^{(2)}(x) f_{1}+l_{2}^{(2)}(x) f_{2} . $$
+
+
+Note that each of the polynomials \eqref{equ:l21}, \eqref{equ:l22} , and \eqref{equ:l23} are exactly of degree 2 and they satisfy $l_{j}^{(2)}\left(x_{k}\right)=\delta_{j k}$. Therefore, it follows that $P_{2}(x)$ given by (9) satisfies the interpolation property
+\begin{align}
+	&P_{2}\left(x_{0}\right)=f_{0}\\
+	&P_{2}\left(x_{1}\right)=f_{1}\\
+	&P_{2}\left(x_{2}\right)=f_{2}
+\end{align}
+
+\end{example}
+
+
+
+We can now write down the polynomial (of degree at most $n$) which interpolates $n+1$ given values, $\left(x_{0}, f_{0}\right), \ldots,\left(x_{n}, f_{n}\right)$, where the interpolation nodes $x_{0}, \ldots, x_{n}$ are assumed distinct.
+Define
+$$
+\begin{aligned}
+l_{j}^{(n)}(x) &=\frac{\left(x-x_{0}\right) \cdots\left(x-x_{j-1}\right)\left(x-x_{j+1} \cdots\left(x-x_{n}\right)\right.}{\left(x_{j}-x_{0}\right) \cdots\left(x_{j}-x_{j-1}\right)\left(x_{j}-x_{j+1} \cdots\left(x_{j}-x_{n}\right)\right.} \\
+&=\prod_{k=0, k \neq j}^{n} \frac{\left(x-x_{k}\right)}{\left(x_{j}-x_{k}\right)}, \quad \text { for } j=0,1, \ldots, n
+\end{aligned}
+$$
+These are called the \textit{elementary Lagrange polynomials} of degree $n$. Note that $l_{j}^{(n)}\left(x_{k}\right)=\delta_{j k}$. Therefore
+\begin{equation}\label{equ:laginterp}
+	 P_{n}(x)=l_{0}^{(n)}(x) f_{0}+l_{1}^{(n)}(x) f_{1}+\cdots+l_{n}^{(n)}(x) f_{n}=\sum_{j=0}^{n} l_{j}^{(n)}(x) f_{j}
+\end{equation}
+interpolates the given data, i.e., it satisfies the interpolation property $P_{n}\left(x_{j}\right)=f_{j}$ for $j=0,1,2, \ldots, n$. Relation \eqref{equ:laginterp} is called the Lagrange form of the interpolating polynomial. 
+
+
+The following result summarizes our discussion.
+
+\begin{theorem}
+	Given the $n+1$ values $\left(x_{0}, f_{0}\right), \ldots,\left(x_{n}, f_{n}\right)$, for $x_{0}, x_{1}, \ldots, x_{n}$ distinct. There is a unique polynomial of degree at most $n, P_{n}(x)$, such that $P_{n}\left(x_{j}\right)=f_{j}$ for $j=0,1, \ldots, n .$
+\end{theorem}
+
+\begin{proof}
+	$P_{n}(x)$ in \eqref{equ:laginterp} is of degree at most $n$ and interpolates the data. Uniqueness follows from the fundamental algebra : suppose there is another polynomial $Q_{n}(x)$ of degree at most $n$ such that $Q_{n}\left(x_{j}\right)=f_{j}$ for $j=0,1, \ldots, n$. Consider $W(x)=P_{n}(x)-Q_{n}(x)$. This is a polynomial of degree at most $n$ and $W\left(x_{j}\right)=P_{n}\left(x_{j}\right)-Q_{n}\left(x_{j}\right)=f_{j}-f_{j}=0$ for $j=0,1,2, \ldots, n$, which is impossible unless $W(x) \equiv 0$ which implies $Q_{n}=P_{n}$.
+\end{proof}
+
+
+
+
+
+\section{Cauchy remainder}
+ The general result about the interpolation error is the following theorem:
+
+
+\begin{theorem}
+	Let $f \in C^{n+1}[a, b], x_{0}, x_{1}, \ldots, x_{n}, x$ be contained in $[a, b]$, and $P_{n}(x)$ be the interpolation polynomial of degrees $n$ of $f$ at $x_{0}, \ldots, x_{n}$ then
+ \begin{equation}\label{equ:rem}
+ 	f(x)-P_{n}(x)=\frac{1}{(n+1) !} f^{(n+1)}(\xi(x))\left(x-x_{0}\right)\left(x-x_{1}\right) \cdots\left(x-x_{n}\right)
+ 	 \end{equation}
+ 	  where $\min \left\{x_{0}, \ldots, x_{n}, x\right\}<\xi(x)<\max \left\{x_{0}, \ldots, x_{n}, x\right\}$.
+\end{theorem}
+
+\begin{proof}
+	The right hand side of \eqref{equ:rem} is known as the Cauchy Remainder and the following proof is due to Cauchy.
+	For $x$ equal to one of the nodes $x_{j}$ the result is trivially true. Take $x$ fixed not equal to any of the nodes and define
+	\begin{equation}
+		\phi(t)=f(t)-P_{n}(t)-\left[f(x)-P_{n}(x)\right] \frac{\left(t-x_{0}\right)\left(t-x_{1}\right) \cdots\left(t-x_{n}\right)}{\left(x-x_{0}\right)\left(x-x_{1}\right) \cdots\left(x-x_{n}\right)} 
+	\end{equation}
+	Clearly, $\phi \in c^{n+1}[a, b]$ and vanishes at $t=x_{0}, x_{1}, \ldots, x_{n}, x$. That is, $\phi$ has at least $n+2$ zeros. Applying Rolle's Theorem $n+1$ times we conclude that there exists a point $\xi(x) \in(a, b)$ such that $\phi^{(n+1)}(\xi(x))=0$. Therefore,
+	\begin{equation*}
+		0=\phi^{(n+1)}(\xi(x))=f^{(n+1)}(\xi(x))-\left[f(x)-P_{n}(x)\right] \frac{(n+1) !}{\left(x-x_{0}\right)\left(x-x_{1}\right) \cdots\left(x-x_{n}\right)}
+	\end{equation*}
+	from which \eqref{equ:rem} follows. Note that the repeated application of Rolle's theorem implies that $\xi(x)$ is a number  between $\min \left\{x_{0}, x_{1}, \ldots, x_{n}, x\right\}$ and $\max \left\{x_{0}, x_{1}, \ldots, x_{n}, x\right\} .$
+
+\end{proof}
+
+
+\begin{exercise}
+	For an interval [a, b], define $h = (b-a)/n$ for an integrer $n>0$. Define evenly spaced node points by
+	\begin{equation}
+		x_j = a + jh, \quad j = 0, 1, \ldots, n.
+	\end{equation}
+	Thus, $x_0=a, x_1 = a+h, \ldots, x_n = a+nh=b$. Consider the polynomial
+	$$\Psi_n(x)=(x-x_0)(x-x_1)\ldots (x-x_n)$$
+	and show that 
+	\begin{equation}
+		|\Psi_n(x)|\le n!h^{n+1}, \quad a\le x \le b. 
+	\end{equation}
+\end{exercise}
+
+
+
+
+
+
+
+
+
+\end{document}

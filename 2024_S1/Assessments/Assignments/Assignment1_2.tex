@@ -1,0 +1,152 @@
+\documentclass[11pt]{article}
+                             % The preamble begins here.
+\title{School of Mathematics and Statistics
+\\ MAST90026
+Computational Differential Equations \\ 2024
+} 
+% Declares the document's title.
+%\author{Leslie Lamport}      % Declares the author's name.
+\date{}      % Deleting this command produces today's date.
+
+\textwidth=17.02cm
+\textheight=25cm
+\voffset=-3cm
+\hoffset=-0.75in
+\oddsidemargin 0.75in
+\evensidemargin 0.75in
+% Remove paragraph indent
+\setlength{\parindent}{0pt}
+
+\renewcommand{\theenumi}{\alph{enumi}}
+\renewcommand{\theenumii}{\roman{enumii}}
+
+\newenvironment{pseudo}{\ttfamily \begin{tabbing} }{\end{tabbing}}
+
+%\setcounter{section}{0}
+
+\usepackage{mcode}
+
+
+\begin{document}             % End of preamble and beginning of text.
+
+\maketitle                   % Produces the title.
+
+\part*{ Assignment 1: Boundary value problems \\ Due: 11AM Wednesday, 17th April.}
+ 
+
+This assignment is worth 20\% of the total assessment in this subject.  
+You should submit copies of {\sc Matlab}  programs (include all files necessary for the programs to run) 
+and sufficient relevant output online through LMS (You may find the Matlab command publish useful!). All hand written working should be scanned and converted to a PDF. Your pdf should also include any tables, figures and comments or explanations of your results.
+
+\medskip
+
+Where the question asks you to write a function with a given declaration you must follow this exactly. A significant portion of the marks are awarded on whether your code produces the correct output for test problems which I will not provide to you until the assignments have been marked. To help you save time I recommend you modify/reuse code from your previous homework assessments.
+
+\medskip
+
+All files should be compressed into a single zip file \emph{with your student ID number in the file name}.
+
+\section{Self-adjoint form of BVPs}
+The model equation used during lectures to derive 1D Galerkin methods is
+\[ -\left(D(x) u'\right)' + q(x)u = f(x)\]
+where $x\in (a, b)$ supplemented by Dirichlet, Neumann or Robin boundary conditions at $a$ and $b$. We also enforce $D(x)>0$ and $q(x)\ge 0$, $\forall x \in[a,b]$. Consider now the ODE
+\[ u'' + \tilde{p}(x)u' + \tilde{q}(x)u = \tilde{f}(x). \]
+\begin{enumerate}
+	\item Derive expressions for $D(x)$, $q(x)$ and $f(x)$ in terms of $\tilde{p}(x)$, $\tilde{q}(x)$ and $\tilde{f}(x)$.
+	\item Using your results in (a), write a function with the following declaration\\
+	\verb+ function [D, q, f] = toSelfAdjointForm(x, pt, qt, ft)+\\
+	where \verb+x+ is a column vector of $x$ values of length $N+1$ and \verb+pt+, \verb+qt+ and \verb+ft+ are also column vectors of length $N+1$ corresponding to the functions $\tilde{p}(x)$, $\tilde{q}(x)$ and $\tilde{f}(x)$ evaluated at the values in \verb+x+. The outputs \verb+D+, \verb+q+ and \verb+f+ should be column vectors of length $N+1$ containing approximations to the functions $D(x)$, $q(x)$ and $f(x)$ evaluated at the values in \verb+x+. For part (b) you only need to submit code, however you should test your code on a case with an analytical result.
+\end{enumerate}
+
+\newpage
+
+\section{Coding the spectral collocation method}
+
+Consider the BVP
+\[ u'' + \tilde{p}(x)u' + \tilde{q}(x)u = \tilde{f}(x). \]
+subject to mixed BCs $u'(-1) = \alpha, u(1) = \beta$. 
+\medskip
+
+Write a {\sc Matlab} function with the following declaration
+\medskip
+
+  \verb+function [x,u]=BvpSpec(D,pt,qt,ft,alpha,beta,N)+ 
+ \medskip\
+ 
+  that solves the BVP using spectral collocation at $N+1$ Chebyshev-Gauss-Lobatto points. \verb|D| is the output of \verb|[D, x] = cheb(N)| and \verb|pt|, \verb|qt| and \verb|ft| are the functions $\tilde{p}(x)$, $\tilde{q}(x)$ and $\tilde{f}(x)$ evaluated on the grid defined by \verb|x|. \verb|alpha| and \verb|beta| are the constants $\alpha$ and $\beta$ respectively.
+  
+   Hint: remember to handle the inhomogeneous Dirichlet and Neumann boundary conditions  correctly; to impose Neumann boundary condition, you should replace the relevant row of the linear system by the discrete counter part  of $u'(-1) = \alpha$.
+  
+
+
+For this question you only need to submit the code for the two functions. No analysis of results is required.
+
+
+\section{Coding the finite element method}
+Consider the BVP
+\[  -\left(D(x)u'\right)' + q(x) u = f(x),\]
+subject to mixed BCs $u'(a) = \alpha, u(b) = \beta$. 
+\medskip
+
+Write a {\sc Matlab} function with the following declaration
+  
+  \medskip
+  
+  \verb+function u=BvpFE(node,elem,D,q,f,alpha,beta)+ 
+  \medskip
+  
+  that solves such a BVP using the finite element method with linear basis functions. \verb|alpha| and \verb|beta| are the constants $\alpha$ and $\beta$ respectively, and \verb|D|, \verb|q| and \verb|f| are column vectors of length $N+1$ containing the values of $D(x)$, $q(x)$ and $f(x)$ evaluated at $node$. Here \verb|node| and \verb|elem| are the data structures for $1D$ meshes as demonstrated in the lecture notes where \verb|node(1) = a| and \verb|node(N+1) = b|. You should use an appropriate numerical integration tecnique to compute all integrals considering that \verb|D|, \verb|q| and \verb|f| are only defined at the $x$ values in \verb|node|. 
+
+\section{Linear BVPs}
+
+Consider the BVP 
+\[ -(p+x^4)^2 u''  + 32 x^6 u = 12x^2 ,\]
+where $p>0$, subject to $- u'(-1) = {-4\over (1+p)^2} $ and $u(1) = {1\over 1+p} $. The exact solution is $u(x) = {1\over p+x^4}$. 
+
+Consider the values $p=1, 0.1, 0.01$ and solve this problem using both the codes you wrote for Question 2 and Question 3. For the finite element method and a given \verb|node| you can generate \verb|elem| as in the example from the Week 3 Powerpoint. Use the following two different choices for \verb|node|:
+\begin{enumerate}
+	\item \verb|node| are evenly spaced values on $[-1, 1]$.
+	\item \verb|node| are the Chebyshev-Gauss-Lobatto points. 
+\end{enumerate}
+ Compute the error (use the $\infty$-norm) and visualise using a log-log plot with horizontal axis of $N$, the number of mesh intervals. Discuss the main differences you observe between the finite element method and spectral collocation. Also discuss the differences in the finite element method that you observe when changing \verb|node|.
+
+
+\newpage
+
+
+
+
+\section{Linear BVPs }
+Use your code from both Questions 1 and 3 to solve the BVP
+
+\[ u'' + \tilde{p}(x)u' + \tilde{q}(x)u = \tilde{f}(x) \]
+
+subject to mixed BCs $u'(-1) = 2, u(1) = 0$ using the finite element method with linear basis functions. The functions $\tilde{p}$, $\tilde{q}$ and $\tilde{f}$ are defined in the function \verb|Assignment_1_Q5_BVP_Functions.m| which takes \verb|node| as an input and returns the vectors \verb|pt|, \verb|qt| and \verb|ft|. Since no analytical solution is available, verify convergence by refining the mesh and then comparing the solutions over the different meshes. The robust way to compare the different solutions is to use norms on the differences however I am happy for you to verify convergence graphically. 
+
+
+
+\section{Nonlinear BVP}
+Consider the following BVP, arising as a steady-state finite domain version of Fisher's equation, for $L<50$,
+
+\[  -u''+u(u-1) = 0, \ u(0) = u(L) = 0.\]
+
+This equation has a trivial solution, $u=0$, and another, non trivial, solution that emerges for larger $L$ (note keep $L < 50$). 
+
+Explore this behaviour numerically in the following way. 
+
+\begin{enumerate}
+  \item Since we can't easily solve on an interval of unknown length, rescale the problem so that you solve on [0,1]. $L$ will   then appear as a parameter in the equations.
+  \item  Solve the nonlinear equations, arising from FD discretization with a uniform mesh, 
+   by Newton's method 
+ \end{enumerate}
+ 
+ For all of these problems, you need to provide an initial guess for the solution. I found a constant solution 
+\[ u_0(x) = c \ \ x \in [0,1] , \] 
+for some $c$ to be good enough.
+
+Describe the behaviour of this BVP as $L$ increases. 
+
+For this question you should use figures of the solutions to describe the behaviour of the system. You should also provide all the {\sc Matlab} code.
+
+ 
+\end{document}

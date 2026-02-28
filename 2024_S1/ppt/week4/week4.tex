@@ -1,0 +1,741 @@
+\documentclass[10pt]{beamer}
+
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+\usepackage{pgfplots}
+\usepackage{color}
+\usepgfplotslibrary{dateplot}
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usepackage{siunitx}
+\usepackage{color}
+\usepackage[normalem]{ulem}
+\usetikzlibrary{calc,decorations.pathmorphing,patterns}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amscd}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{enumerate}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{nth}
+\usepackage{lipsum}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%list %%%%%%%%%%%%%%%%%
+\usepackage{textcomp}           % To use with matlab-prettifier
+\usepackage{listings}
+\usepackage[framed , numbered]{matlab-prettifier}
+\usepackage{listings}
+%%%%%%%%%%%%%%%%%end of list%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% The following is for fancy box %%%%%%%%%%%%%%
+\usepackage[framemethod=TikZ]{mdframed}
+%%%%%%%%%%%%% Theorem %%%%%%%%%%%%
+\newenvironment{thm}[2][]{%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=red!20]
+{\strut Theorem};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=red!20]
+{\strut Theorem #1};}}%
+}%
+\mdfsetup{innertopmargin=1pt,linecolor=red!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+%%%%%%%%%%%%%%Lemma%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{lem}[section] \setcounter{lem}{0}
+\renewcommand{\thelem}{}
+\newenvironment{lem}[2][]{%
+\refstepcounter{lem}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=green!20]
+{\strut Lemma~\thelem};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=green!20]
+{\strut Lemma~\thelem:~#1};}}%
+}%
+\mdfsetup{innertopmargin=1pt,linecolor=green!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Corollary
+\newenvironment{cor}[2][]{%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!30]
+{\strut Corollary};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!30]
+{\strut Corollary:~#1};}}%
+}%
+\mdfsetup{innertopmargin=1pt,linecolor=blue!30,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Proof
+\newenvironment{prove}[2][]{%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=red!20]
+{\strut Proof};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=red!20]
+{\strut Proof:~#1};}}%
+}%
+\mdfsetup{innertopmargin=1pt,linecolor=red!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Defintion
+\newcounter{drf}[section]\setcounter{drf}{0}
+\renewcommand{\thedrf}{}
+\newenvironment{drf}[2][]{%
+\refstepcounter{drf}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=orange!20]
+{\strut Definition~\thedrf};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=orange!20]
+{\strut Definition~\thedrf:~#1};}}%
+}%
+\mdfsetup{innertopmargin=1pt,linecolor=orange!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% end of self defined label
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%% For double curly bracket%%%%%%%%%%%%%%%%
+\usepackage{xparse}
+
+\NewDocumentCommand{\dgal}{sO{}m}{%
+  \IfBooleanTF{#1}
+    {\dgalext{#3}}
+    {\dgalx[#2]{#3}}%
+}
+
+\NewDocumentCommand{\dgalext}{m}{%
+  \sbox0{%
+    \mathsurround=0pt % just for safety
+    $\left\{\vphantom{#1}\right.\kern-\nulldelimiterspace$%
+  }%
+  \sbox2{\{}%
+  \ifdim\ht0=\ht2
+    \{\kern-.45\wd2 \{#1\}\kern-.45\wd2 \}%
+  \else
+    \left\{\kern-.5\wd0\left\{#1\right\}\kern-.5\wd0\right\}%
+  \fi
+}
+
+\NewDocumentCommand{\dgalx}{om}{%
+  \sbox0{\mathsurround=0pt$#1\{$}%
+  \sbox2{\{}%
+  \ifdim\ht0=\ht2
+    \{\kern-.45\wd2 \{#2\}\kern-.45\wd2 \}%
+  \else
+    \mathopen{#1\{\kern-.5\wd0 #1\{}
+    #2
+    \mathclose{#1\}\kern-.5\wd0 #1\}}
+  \fi
+}
+%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{animate}
+
+\graphicspath{{./fig/}}
+
+
+%%%%%%%%%%%%%% define color %%%%%%%%%%%%%%%%%%
+\definecolor{DarkFern}{HTML}{407428}
+\definecolor{DarkCharcoal}{HTML}{4D4944}
+\colorlet{Fern}{DarkFern!85!white}
+\colorlet{Charcoal}{DarkCharcoal!85!white}
+\colorlet{LightCharcoal}{Charcoal!50!white}
+\colorlet{AlertColor}{orange!80!black}
+\colorlet{DarkRed}{red!70!black}
+\colorlet{DarkBlue}{blue!70!black}
+\colorlet{DarkGreen}{green!70!black}
+
+\newcommand{\I}{\mathrm{i}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newcommand{\G}{\alert{G}}  % change color of main author
+
+
+
+%%%%%%%%%%%%% Title Page %%%%%%%%%%%%%%%%%%%
+
+\title{MAST90026 Computational Differential\\Equations: Week 4}
+%\subtitle{A modern beamer theme}
+\date{Semester 1 2024}
+\author{Jesse Collis\\Modified from Hailong Guo (2022)}
+\institute{The University of Melbourne}
+\titlegraphic{\vspace{6cm}\flushright\includegraphics[height=2cm]{logo.png}}
+
+
+\begin{document}
+
+\maketitle
+
+
+%
+%
+%\begin{frame}{Table of contents}
+%  \setbeamertemplate{section in toc}[sections numbered]
+%  \tableofcontents[hideallsubsections]
+%\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%
+%	SECTION: 
+%
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%\section{Method of Weighted Residuals}
+
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Handling nonlinearities}
+
+
+
+\resizebox{.85\linewidth}{!}{
+  \begin{minipage}{\linewidth}
+\begin{equation*}
+\begin{CD}
+\mbox{Non-linear BVP} @>\mbox{discretize}>\mbox{FDM, collocation, FEM}> \mbox{Non-linear algebraic equations}\\
+@V\mbox{quasilinearise}VV @VV\mbox{linearise}V\\
+\mbox{Sequence of linear BVPs} @>\mbox{discretize}>> \mbox{Solve a sequence of linear systems}
+\end{CD}
+\end{equation*}
+  \end{minipage}
+}
+
+
+\end{frame}
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Demonstration }
+Consider a simple non-linear BVP:
+\begin{equation*}
+u''+1-u^2=0, \qquad u(0)=0, u(1)=1,
+\end{equation*}
+with $N+1$ mesh points or $N-1$ internal points.
+
+\vspace{1em}
+
+FDM:
+\begin{equation*}
+\frac{u_{j-1}-2u_j+u_{j+1}}{h^2} +1-u^2_j=0, \qquad j=2,\dots N, \qquad u_1=0,\,u_{N+1}=1.
+\end{equation*}
+
+
+
+\end{frame}
+   
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Matrix form of FDM }
+
+System of nonlinear equations:
+\begin{equation*}
+\frac{1}{h^2} 
+\begin{pmatrix}
+-2 & 1 & 0 & \cdots & \cdots \\
+1 & -2 & 1 & 0 & \vdots \\
+0 & 1& \ddots & \ddots & \vdots\\
+\vdots & \vdots & \ddots & \ddots & \vdots\\
+\vdots & \cdots &\cdots &\cdots &-2
+\end{pmatrix}
+\begin{pmatrix}
+u_2 \\
+\vdots\\
+\vdots\\
+\vdots\\
+u_N
+\end{pmatrix}
++
+\begin{pmatrix}
+1-u_2^2 \\
+\vdots\\
+\vdots\\
+\vdots\\
+1-u_N^2
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 \\
+0\\
+\vdots\\
+\vdots\\
+-\frac{1}{h^2}
+\end{pmatrix}
+\end{equation*}
+
+
+
+\vspace{1em}
+
+This is a nonlinear system of algebraic equations
+ \[\vec{F}(\vec{u})=A\vec{u} + 1-\vec{u}\odot\vec{u}-\vec{b}=\vec{0}.\]
+\end{frame}
+   
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Method for solving nonlinear equations }
+
+Fixed point or Picard iteration (easy to implement but usually linearly convergent)
+ \vspace{1em}
+ 
+ Newton's Method (need $f'$ but quadratically convergent)
+  
+  \vspace{1em}
+  
+  Bisection (globally convergent but slow)
+  
+  \vspace{1em}
+  
+  Secant method (don't need $f'$ but super linear convergence)
+
+\end{frame}
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Fixed point (Picard) iteration }
+
+Idea of Picard iteration: rewrite $f(x)=0$ as $x = g(x)$.
+
+  \vspace{1em}
+
+Condition on convergence: $g$ is contractive i.e. $|g(x)-g(y)|< C|x-y|$ for some $C<1$. 
+
+
+\vspace{1em}
+
+
+
+Sufficient condition: $|g'|<1$. 
+
+
+
+\vspace{1em}
+
+
+Higher-dimensional: rewrite $\vec{F}(\vec{u})=\vec{0}$ as $\vec{u}=\vec{G}$
+
+ \vspace{1em}
+ 
+Our example:  \[ \vec{u}_{N+1} = \vec{A}^{-1} [\vec{b} - (1- \vec{u}_N\odot\vec{u}_N)].\]
+
+\end{frame}
+
+
+   
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Idea of Newton's method }
+
+    \begin{center}
+  \includegraphics[width=0.8\textwidth]{newtongraph}
+     \end{center}
+     
+\end{frame}
+   
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Derivation  of Newton's method using Taylor series}
+
+
+Using Taylor series:
+\[f(x_{n+1}) \approx f(x_n) - f'(x_n)(x_{n+1}-x_n),\]
+or written as an update 
+\[x_{n+1} = x_n + \Delta x_n, \quad \text{where} \quad  \Delta x_n = \frac{-f(x_n)}{f'(x_n)}.\]
+ 
+ 
+ 
+  \vspace{1em}
+ Quadratic convergence, i.e. $e_{n+1} \le K e_{n}^2$ but not always convergent.
+ 
+\end{frame}
+   
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{2D Newton's method }
+
+Consider  $F(u,v)=0$, and $G(u,v)=0$. 
+
+ \vspace{1em}
+
+Taylor series expansion: 
+\begin{align*}
+&0=F(u_{n+1},v_{n+1}) \approx F(u_n,v_n) + \frac{\partial F}{\partial u} \bigg|_n(u_{n+1}-u_n) + \frac{\partial F}{\partial v}\bigg|_n (v_{n+1} - v_n),\\
+&0=G(u_{n+1},v_{n+1}) \approx G(u_n,v_n) + \frac{\partial G}{\partial u} \bigg|_n\Delta u_n + \frac{\partial G}{\partial v}\bigg|_n \Delta v_n,
+\end{align*}
+
+
+ \vspace{1em}
+Matrix form
+\begin{equation*}
+\begin{pmatrix}
+\frac{\partial F}{\partial u}\big|_n & \frac{\partial F}{\partial v}\big|_n\\
+\frac{\partial G}{\partial u}\big|_n & \frac{\partial G}{\partial v}\big|_n
+\end{pmatrix}
+\begin{pmatrix}
+\Delta u_n\\
+\Delta v_n
+\end{pmatrix}
+=-
+\begin{pmatrix}
+F(u_n,v_n)\\
+G(u_n,v_n)
+\end{pmatrix}
+=-
+\vec{F}(\vec{u}_n).
+\end{equation*}
+
+ 
+\end{frame}
+   
+   
+   
+   
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{General Newton's method }
+
+Derive using Taylor  series expansion:
+$$
+0=\mathbf{F}\left(\mathbf{u}_{n+1}\right) \approx \mathbf{F}\left(\mathbf{u}_{n}\right)+\mathbf{F}^{\prime}\left(\mathbf{u}_{n}\right)\left(\mathbf{u}_{n+1}-\mathbf{u}_{n}\right) .
+$$
+
+ \vspace{1em}
+ Newton update
+$$
+\mathbf{u}_{n+1}=\mathbf{u}_{n}+\delta_{n}
+$$
+where $\delta_{n}$ solves the linear system
+$$
+J\left(\mathbf{u}_{n}\right) \delta_{n}=-\mathbf{F}\left(\mathbf{u}_{n}\right)
+$$
+Here $J(\theta) \equiv F^{\prime}(\theta) \in \mathbb{R}^{m \times m}$ is the Jacobian matrix with elements
+$$
+J_{i j}(\mathbf{u})=\frac{\partial}{\partial u_{j}} F_{i}(\mathbf{u}),
+$$
+where $F_{i}(\mathbf{u})$ is the $i$ th component of the vector-valued function $\mathbf{F}$.
+
+
+ 
+\end{frame}
+      
+      
+      
+      
+\begin{frame}{Discussion of Newton's method}
+
+\alert{Pros}: If it convergent, it is quadratic convergent.
+
+
+ \vspace{1em}
+ \alert{Cons}: 
+ \begin{itemize}
+ 	\item  Need  to compute the $N \times N$ matrix $J$ of partial derivative.
+ 	\item Need to solve a sequence of $N \times N$ linear systems  ($O(N^3)$ work).
+ \end{itemize}
+\end{frame}
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Back to our Example }
+Considering $u''+1-u^2=0$ again
+\begin{align*}
+&F_i=\sum_j {A}_{ij}u_j +  (1-u_i^2)-{b}_i=0,\\
+&J_{ij} = \frac{\partial F_i}{\partial u_j} = {A}_{ij} - 2u_j\delta_{ij}.
+\end{align*}
+
+
+
+In this case,  $J$ was sparse (tridiagonal) so it's not too hard to compute or solve with.  It's a good idea to declare it sparse or use \alert{spdiags} to create it.
+
+ 
+\end{frame}
+      
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Applicability of Newton's method}
+Need  $J_{ij}=\frac{\partial F_i}{\partial u_j}$ which is often expensive because it has $N^2$ elements. It is also often hard to evaluate the Jacobian analytically.
+
+\begin{itemize}
+	\item  Finite difference approximation for the partial derivative.
+\begin{equation*}
+\frac{\partial F_i}{\partial u_j} \approx \frac{F_i(u_j + \delta) - F_i(u_j)}{\delta},
+\end{equation*}
+where $\delta \sim C\sqrt{r}$ where $C$ is a constant and $r$ is the unit roundoff. This retains quadratic convergence down to $e_{n+1} \sim r$.
+\item Use \alert{automatic differentiation} (Ref:  Andreas Griewank) which  finds the action of the Jacobian on $F$.
+\end{itemize}
+
+
+
+ 
+\end{frame}
+
+
+
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Efficiency of Newton's method}
+Idea: evaluate $J$, which has $N^2$ elements as seldom as possible whilst also solving $J \Delta u = -f$ ($O(N^3)$ operations) as seldom as possible.
+
+\vspace{1em}
+Motivation: solve $J \Delta u = -f$ in two steps: 1. factorise $J=LU$ into upper and lower triangular matrices; 2. solve the triangular systems which takes $O(N^2)$ time.
+S modify Newton's method to evaluate $J$ only every so often instead of every step.
+
+
+
+
+\begin{itemize}
+\item \alert{Chord method}:  start at $\vec{u_0}$ and only evaluate and factorise $J(\vec{u}_0)$ once and then solve 
+\[(LU)_0 \Delta u_{n} = -F(\vec{u_n}), \ \ u_{n+1}=u_n+\Delta u_n,\]
+ repeatedly. much cheaper but only has linear convergence.
+
+
+\item Re-evaluate $J$ and refactorise every $m$ step. ($m=1$ is Newton's method and $m=\infty$ is the chord method).
+\item \alert{inexact Newton methods} and \alert{truncated Newton methods}: solve the systems approximately using an iterative solver.
+\end{itemize}
+
+ 
+\end{frame}
+
+
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Convergence of Newton's method}
+Newton's method only solves equations if $\vec{u}_0$ is close enough to the solution $\vec{u^*}$. \alert{Question}: how do we find $\vec{u}_0$?
+
+
+
+
+\alert{Damped Newton methods} which seek to globalize Newton's method by increasing the basin of attraction, $r$.
+
+To do this, we observe that often the step size is too big causing us to over shoot the root, even though we have the direction right.
+To do this we replace the Newton step (or modified Newton step) by:
+\begin{equation*}
+\vec{u}_{n+1}=\vec{u}_n+\lambda\Delta u_n,
+\end{equation*}
+where $\lambda \in (0,1)$ is the damping factor.
+
+
+We can modify this further by varying $\lambda$ from step to step, always choosing $\lambda_n$ such that $\|F\|$ falls by a ``sufficient" amount (Ref: Armijo 1966).
+
+
+ 
+\end{frame}
+
+
+
+
+
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Quasi-linearisation}
+ 
+ Consider the boundary value problem:
+\begin{align*}
+u''+q(u)&=f(x), \quad u(a)=\alpha, u(b)=\beta.
+\end{align*}
+
+
+\vspace{1em}
+
+Approximate the operator $q(u)$ by a linear approximation about the function $u_0$.
+\begin{align*}
+q(u) \approx q(u_0) + q'(u_0)(u-u_0),
+\end{align*}
+where $q'(u_0)$ denotes the \emph{Fr\'{e}chet} derivative.
+
+
+
+ 
+\end{frame}
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Iterative procedure}
+First guess a solution for $u_0$, then solve
+\begin{align*}
+&u''_1+q'(u_0)(u_1-u_0)+q(u_0)=f(x),\\
+\implies &u''_1+q'(u_0)u_1=f(x)-q(u_0)+u_0q'(u_0),
+\end{align*}
+subject to $u_1(a)=\alpha$ and $u_1(b)=\beta$.
+
+
+
+
+\vspace{1em}
+Repeating this process we get
+\begin{equation*}
+\begin{cases}
+u''_{n+1}+q'(u_n)u_{n+1}=f(x)-q(u_n)+u_n q'(u_n),\\
+u_{n+1}(a)=\alpha, u_{n+1}(b)=\beta,
+\end{cases}
+\end{equation*} 
+until convergence.
+	
+\end{frame}
+
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Iterative procedure}
+Newton update at each iteration
+\begin{equation*}
+\begin{cases}
+\delta ''_{n}+q'(u_n)\delta_n=f(x)-q(u_n)-u''_n,\\
+u_{n+1} = u_n + \delta_n, \\
+\delta_n(a)=0, \delta_n(b)=0.
+\end{cases}
+\end{equation*} 
+
+
+
+For FEM, it is more convenient to first quasi-linearise and then discretise. 
+	
+\end{frame}
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}[standout]
+  End of week 4!
+\end{frame}
+
+\appendix
+
+
+
+\end{document}

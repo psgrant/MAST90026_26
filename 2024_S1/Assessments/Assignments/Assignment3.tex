@@ -1,0 +1,240 @@
+\documentclass[11pt]{article}
+                             % The preamble begins here.
+\title{Department of Mathematics and Statistics
+\\ MAST90026
+Computational Differential Equations \\ 2024
+} 
+% Declares the document's title.
+%\author{Leslie Lamport}      % Declares the author's name.
+\date{}      % Deleting this command produces today's date.
+
+\usepackage{graphicx}
+
+\textwidth=17.02cm
+\textheight=23cm
+\voffset=-3cm
+\hoffset=-0.75in
+\oddsidemargin 0.75in
+\evensidemargin 0.75in
+% Remove paragraph indent
+\setlength{\parindent}{0pt}
+
+
+\renewcommand{\theenumi}{\alph{enumi}}
+\renewcommand{\theenumii}{\roman{enumii}}
+
+\newenvironment{pseudo}{\ttfamily \begin{tabbing} }{\end{tabbing}}
+
+%\setcounter{section}{0}
+
+\usepackage{mcode}
+
+\begin{document}             % End of preamble and beginning of text.
+
+
+\maketitle                   % Produces the title.
+\vspace{-5em}
+\part*{ Assignment 3: Parabolic/hyperbolic PDEs \\ Due: 11AM Wednesday 15th May.}   
+
+This assignment is worth 20\% of the total assessment in this subject.  
+You should submit copies of {\sc Matlab}  programs (include all files necessary for the programs to run) 
+and sufficient relevant output in PDF form. All hand written working should be scanned and converted to a PDF. Your PDF should also include any tables, figures and comments or explanations of your results.
+\medskip
+
+All files should be compressed into a single zip file \emph{with your student ID number in the file name}.
+
+
+%\section{ Pricing  European options}
+%
+%The assumption of geometric Brownian motion for asset prices and stochastic calculus  produces the famous {\em Black-Scholes equation}
+%\[ \frac{\partial V}{\partial t} + r S  \frac{\partial V}{\partial S} + \frac{1}{2} \sigma^2 S^2  \frac{\partial^2 V}{\partial S^2} = r V \]
+%where $V(S,t)$ is the value of an option depending on the current stock price  or {\em spot price}  $S$ and time $t$. $r$ is the risk-free interest rate ( e.g. Greek government bonds (!)) and $\sigma$ is the stock volatility, both assumed constant.
+%
+%Different kinds of options can be priced by using different {\em terminal conditions} and boundary conditions.  
+%To make it look more like an ordinary parabolic equation, replace $t$ by the {\em time to maturity}  $\tau = T-t$, where $T$ is the maturity date of the option. 
+%\[ \frac{\partial V}{\partial \tau} = r S  \frac{\partial V}{\partial S} + \frac{1}{2} \sigma^2 S^2  \frac{\partial^2 V}{\partial S^2} - r V \]
+%
+%
+%The simplest ({\em vanilla}) option is  a {\em European call} (option to buy a stock at the price $E$). It  is specified by 
+%
+% \begin{enumerate}
+% \item the `initial condition'  at $\tau = 0$ that is given by the terminal payoff for a call: $\max(S-E,0)$ where $E$ is the exercise price or {\em strike price} 
+% 
+% and the boundary conditions:
+%  \item  \[ V(0,\tau) = 0     \] 
+%since if the stock price is zero, you would never exercise your option to buy and the option is worthless.
+%  \item  \[ V(\infty,\tau) \rightarrow  S - E e^{-r\tau}     \] 
+%since if the stock price is very large, you would always exercise your option to buy and the option is worth  the value of the stock, less the discounted exercise price. In practice, this BC is imposed at some large value of S, $S_{max}$, typically some multiple of $E$. You may have to experiment to find a suitable value.
+%\end{enumerate} 
+%i.e. we have inhomogeneous (and time-dependent) Dirichlet BCs.
+%
+%This option can be priced exactly: use \verb+BSEuroCall.m+ to get the exact option values.
+%
+%Your task is: 
+%
+%\begin{enumerate}
+%\item Use the Method of Lines to write a program that prices these  options for  a given 
+%$ r, \sigma, E$ and $S \in [0,S_{max}], \tau \in [0,T]$. Use central differences to discretize all derivatives. You will have to choose values of $S_{max}$ and $N$, the number of subintervals in your S-mesh. You should make sure $E$ lies on a mesh point.
+%\item Write a driver to solve on the same meshes using \verb+pdepe+. 
+%\item Compute the errors at $T$ from each method with $E=1, T=1$ for the cases:
+%\begin{enumerate}
+%\item $r=0.1, \sigma = 0.2$ ---- a typical case
+%\item $r=0.1, \sigma = 0.01$ --- unusual case
+%\end{enumerate}
+%\item For the first case, investigate the error as a function of $N$, especially at $S=E$. Comment on your findings.
+%\item Comment on your results for the second case. 
+%\end{enumerate}
+%
+
+\section{Solving the advection equation (7 marks)}
+
+Solve the advection equation 
+\[u_t + u_x = 0,   \ \ 0 \le x \le 2, 0 \le t \le 5,  \]
+subject to the periodic boundary condition $u(0, t) = u(2, t)$ with initial conditions  
+\begin{enumerate}
+\item square pulse:
+\[ u(x,0) = H(x-0.2) - H(x-0.4). \]
+
+\item Gaussian wavepacket:
+ \[ u(x,0) = \exp(-10(4x-1)^2). \]
+\end{enumerate}
+
+
+
+% \newpage
+
+Solve using the following methods as defined in the Week 9 lecture slides:
+\begin{itemize}
+\item Lax-Wendroff Method
+
+\item Upwind Method
+\end{itemize}
+
+For each method: 
+\begin{enumerate}
+\item[i.] Explicitly write out any of the discretised equations which are modified by the periodic boundary condition.
+  \item[ii.] State the condition on $\nu$ to satisfy the CFL condition.
+  \item[iii.] Solve for two values of $\nu$, one that satisfies the CFL condition and one that does not. In each case submit a plot of $u$ vs $x$ at $t = 5$.
+\end{enumerate}
+
+
+Write a short paragraph discussing the performance of each method with the two initial conditions. Which method do you think is most suited to each initial condition?
+
+
+\newpage
+
+\section{Finite difference methods for the heat equation (7 marks)}
+
+The 1-D heat equation
+ 
+\[ \frac{\partial u}{\partial t} = \frac{\partial^2 u}{\partial x^2},  \ \ \  0 \le x \le 1, \ t \ge 0, \]
+
+where 
+\[\partial_x u(0,t) = \partial_x u(1,t) = 0, \]
+\[u(x,0) = \cos (\pi x), \]
+ has the exact solution $u(x,t) = \cos \left(\pi x \right)e^{-\pi^2 t} $.
+ 
+ Solve this system using:
+ 
+% \newpage
+ 
+\begin{enumerate}
+\item  Crank-Nicolson finite differencing; and
+\item TR-BDF2 method (see below).
+\end{enumerate}
+
+For the Neumann boundary conditions, use the Ghost-point method as discussed earlier in the course. By choosing various time steplengths $\Delta t = k$ and space step lengths $\Delta x = h$, 
+illustrate the {\em stability} and {\em accuracy} of each method.
+
+%If the FTCS method is used with $\mu \equiv \frac{k}{h^2}$ held fixed at $\mu=\frac{1}{6}$, something surprising happens. Investigate this case.
+
+To track the error, it is sufficient to look at the point $(x, t) = (1/2, 1)$. 
+
+\vspace{0.5cm}
+
+Use the following method to estimate the order in space and time of each method:
+
+If we assume that the error due to the size of the space steps is independent of 
+the error due to the time step lengths i.e.
+\begin{equation}
+ e_{total} = e_{time}(k) + e_{space}(h) = O(h^q,k^p), 
+\end{equation}
+  then we note that the order of the error due to the time steps may be found using
+\[ p = \frac{\log(\Delta e_n) - \log(\Delta e_{n-1})}{\log(k_n) - \log(k_{n-1})}, \] 
+ where $ \Delta e_n$  is the change in error between 
+the result with time step $k_n$   and  the result with time step $k_{n-1}$
+ (i.e. $\Delta e_n  =e_n- e_{n-1}$ ) when $\Delta x = h$  is held fixed. Typically, 
+$k_n = k_{n-1}/2$  i.e. we run a series of calculations halving k each time.  
+
+\vspace{0.5cm}
+Explain why this formula works, assuming Equation (1) holds.
+Derive a similar formula  for $q$.
+
+\subsubsection*{TR-BDF2}
+The TR-BDF2 method comes from applying the  2-stage implicit RK method instead of the implicit trapezoid rule used to obtain the Crank-Nicolson method. It is
+\[  u^{*} = u^n + {k \over 4}\left[ f(t_n,u^n) + f(t_n + k/2,u^*)  \right],  \]
+\[  u^{n+1} = {1\over 3} \left[4 u^* - u^n+ k  f(t_n + k,u^{n+1})  \right].  \] 
+
+ \newpage
+		
+
+
+%\section{High resolution methods}
+%
+%In order to resolve discontinuities or shocks, we must resort to using nonlinear methods.
+%
+%Some popular high-resolution  methods for the advection equation from Question 3 can be written in the form:
+%\[ u_j^{n+1} = u_j^{n} - \nu (u_{j}^{n} - u_{j-1}^{n})- \frac{\nu(1-\nu)}{2}[\phi_(r_+) (u_{j+1}^{n}- u_{j}^{n})
+%- \phi_(r_-)( u_{j}^{n}- u_{j-1}^{n})], \]
+%where $r_+ = \frac{u_{j}^{n}- u_{j-1}^{n}}{u_{j+1}^{n}- u_{j}^{n}}$, $r_- = \frac{u_{j-1}^{n}- u_{j-2}^{n}}{u_{j}^{n}- u_{j-1}^{n}}$ are {\em smoothness monitors} and different choices of the {\em limiter function}  
+%$\phi(r)$ produce different methods. 
+%The Lax-Wendroff, Beam-Warming and Fromm methods correspond to  $\phi(r) = 1, r , {1 \over 2}(1+r)$, respectively.
+% 
+%
+%Try the following popular choices for $\phi(r)$ on the square pulse problem from Question 3
+%\begin{itemize}
+%\item  the MinMod limiter $ \phi(r) = \max(0,\min(1,r)), $
+%\item the Van Leer limiter $  \phi(r) = {r + |r| \over 1 + |r|},$
+%\item  the Superbee limiter  $ \phi(r) = \max(0,\min(2r,1),\min(r,2)), $
+%\end{itemize}
+%and comment on the performance compared to the methods of Question 3. 
+%
+%You may need to add $10^{-13}$ to the denominators of $r_+, r_-$ to avoid divide by zero problems.
+
+
+\newpage
+
+
+\section{Fisher's equation (3 marks)}
+
+Use the Method of Lines (use ODE45) with Central Difference discretization to solve Fisher's equation
+\[ u_t = u_{xx} + u(1-u), \]
+on $[0,10]$  subject to mixed BCs 
+\[ u(0,t) = 1;\ \partial_x u(10,t) = 0. \]
+
+\begin{enumerate}
+\item Solve the case where the initial condition is
+$$u_0(x) = 1-H(x-1)$$ where $H(x)$ is the Heaviside step function.
+
+\item Experiment with other initial conditions and submit plots for at least 3 different cases to the initial condition in (a). Based on your observations find a steady state solution to Fisher's equations with the given boundary conditions. Do you always approach this steady state? 
+
+\end{enumerate}
+
+
+\section{Advection diffusion equation (3 marks)}
+Consider the advection diffusion equation
+$$ u_t = a u_{xx} - c u_x$$
+subject to the periodic boundary conditions
+$$ u(0, t) = u(1, t) \qquad \mathrm{and} \qquad \partial_x u(0, t) = \partial_x u(1, t)$$
+
+\begin{enumerate}
+\item Consider a grid of $N$ evenly spaced internal points, $u_j (t)$ and with $u_0(t) = u(0, t)$ and $u_{N+1}(t) = u(1, t)$. Using 2nd order accurate central differencing, derive the semi-discrete (i.e., discretise in space but not in time) equations for $u_1(t)$, $u_j(t)$ where $j = 2, ..., N-1$ and $u_N(t)$. Hint: for the periodic Neumann condition, use the 3 point formulae $\partial_x u(0, t) \approx (-3u_0(t) + 4 u_1(t) - u_2(t))/(2h)$ and $\partial_x u(1, t) \approx (u_{N-1}(t) - 4u_N(t) + 3u_{N+1}(t))/(2h)$.
+\item Write your system of equations in (a) in the form $\dot{\mathbf{u}} = \mathbf{f}(\mathbf{u})$ where $\mathbf{u} = [u_1(t), ..., u_{N}(t)]^{T}$ and define $\mathbf{f}(\mathbf{u})$.
+\item Using the Crank-Nicholson method to handle the time derivative, write down a fully discrete system of equations to solve this advection-diffusion equation.
+\item Prove the local truncation error of your scheme in (c) is of the form $\tau = O(h^p, k^q)$ and in so doing find the values of $p$ and $q$. You may ignore the effect of the boundary conditions by only examining the spatial points $j = 2, ..., N-1$.
+\end{enumerate}
+
+Note: this question does not require you to do any coding.
+
+
+\end{document}
